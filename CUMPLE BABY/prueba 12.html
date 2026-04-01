@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Corazón</title>
+
+<style>
+body{
+  background:#ffccd5;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family: Arial;
+}
+
+.corazon{
+  font-size:80px;
+  cursor:pointer;
+  text-align:center;
+}
+
+.texto{
+  display:none;
+  font-size:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="corazon" onclick="mostrar()">
+  ❤️
+  <div class="texto" id="t">Este corazón es para ti 💕</div>
+</div>
+
+<script>
+function mostrar(){
+  document.getElementById("t").style.display="block";
+}
+</script>
+
+</body>
+</html>

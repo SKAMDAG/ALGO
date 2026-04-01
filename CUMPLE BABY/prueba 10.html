@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Cumpleaños</title>
+
+<style>
+body{
+  background:#fff3b0;
+  text-align:center;
+  font-family: Arial;
+}
+
+button{
+  margin-top:100px;
+  padding:15px;
+  font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<button onclick="mostrar()">🎉 Ver sorpresa</button>
+
+<h1 id="msg" style="display:none;">
+  🎂 ¡Feliz Cumpleaños! 💖
+</h1>
+
+<script>
+function mostrar(){
+  document.getElementById("msg").style.display="block";
+}
+</script>
+
+</body>
+</html>

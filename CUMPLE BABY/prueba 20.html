@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mi Película Web</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    background: black;
+    color: white;
+}
+
+/* ESCENAS */
+.scene {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    transition: opacity 1s;
+}
+
+.active {
+    display: flex;
+}
+
+/* BOTÓN */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background: pink;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+/* ANIMACIÓN */
+.fade {
+    animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ESCENA 1 -->
+<div class="scene active fade" id="scene1">
+    <h1>💖 Una Historia Especial 💖</h1>
+    <p>Todo comenzó con un simple mensaje...</p>
+    <button onclick="nextScene()">Continuar</button>
+</div>
+
+<!-- ESCENA 2 -->
+<div class="scene" id="scene2">
+    <h1>🌙 Poco a poco...</h1>
+    <p>Las conversaciones se volvieron importantes...</p>
+    <button onclick="nextScene()">Continuar</button>
+</div>
+
+<!-- ESCENA 3 -->
+<div class="scene" id="scene3">
+    <h1>❤️ Y sin darnos cuenta...</h1>
+    <p>Se convirtió en algo especial...</p>
+    <button onclick="nextScene()">Final</button>
+</div>
+
+<!-- ESCENA FINAL -->
+<div class="scene" id="scene4">
+    <h1>💌 Te amo 💌</h1>
+    <p>Gracias por ser parte de mi historia</p>
+    <button onclick="restart()">Reiniciar</button>
+</div>
+
+<script>
+let current = 1;
+
+function nextScene() {
+    document.getElementById("scene" + current).classList.remove("active");
+    current++;
+    document.getElementById("scene" + current).classList.add("active");
+}
+
+function restart() {
+    document.getElementById("scene" + current).classList.remove("active");
+    current = 1;
+    document.getElementById("scene1").classList.add("active");
+}
+</script>
+
+</body>
+</html>

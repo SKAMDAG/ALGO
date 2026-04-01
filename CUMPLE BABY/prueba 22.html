@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>9 NO Cumpleaños.🎈</title>
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#51a6df;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+#phone{
+  width:340px;
+  height:620px;
+  background:#efeae2;
+  border-radius:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+#header{
+  background:#075e54;
+  color:white;
+  padding:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+#avatar{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  background: var(--avatar-img, url('https://i.imgur.com/1X6fQ9K.png')) center/cover;
+  cursor:pointer;
+}
+
+#info{ display:flex; flex-direction:column; }
+#name{ font-weight:bold; font-size:14px; }
+#status{ font-size:11px; opacity:0.8; }
+
+#chat{
+  flex:1;
+  padding:10px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  background-image: var(--chat-bg, url('https://i.imgur.com/8Km9tLL.png'));
+  background-size: cover;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.2) transparent;
+}
+
+#chat::-webkit-scrollbar{
+  width:6px;
+}
+#chat::-webkit-scrollbar-thumb{
+  background:rgba(0,0,0,0.2);
+  border-radius:10px;
+}
+#chat::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.msg{
+  max-width:75%;
+  padding:8px 10px;
+  margin:6px 0;
+  border-radius:10px;
+  font-size:14px;
+  position:relative;
+  animation:fadeIn 0.3s ease;
+}
+
+.me{
+  background:#dcf8c6;
+  align-self:flex-end;
+  border-top-right-radius:0;
+}
+
+.other{
+  background:white;
+  align-self:flex-start;
+  border-top-left-radius:0;
+}
+
+/* piquitos */
+.me::after{
+  content:"";
+  position:absolute;
+  right:-6px;
+  top:0;
+  border-width:6px;
+  border-style:solid;
+  border-color:#dcf8c6 transparent transparent transparent;
+}
+
+.other::after{
+  content:"";
+  position:absolute;
+  left:-6px;
+  top:0;
+  border-width:6px;
+  border-style:solid;
+  border-color:white transparent transparent transparent;
+}
+
+.time{
+  font-size:10px;
+  color:#666;
+  margin-top:4px;
+  text-align:right;
+}
+
+.check{
+  color:#4fc3f7;
+  margin-left:4px;
+}
+
+.typing{
+  font-size:12px;
+  color:#ccc;
+  padding:5px 10px;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(5px);} 
+  to{opacity:1; transform:translateY(0);} 
+}
+</style>
+</head>
+<body>
+
+<div id="phone">
+  <div id="header">
+    <div id="avatar"></div>
+    <div id="info">
+      <div id="name">Mi amor 💙</div>
+      <div id="status">en línea</div>
+    </div>
+  </div>
+
+  <div id="chat"></div>
+</div>
+
+<script>
+// 👉 PERSONALIZA AQUÍ
+// document.documentElement.style.setProperty('--chat-bg', "url('TU_FONDO')");
+// document.documentElement.style.setProperty('--avatar-img', "url('TU_FOTO')");
+
+const messages=[
+  {text:"Hola mi amor 💕", type:"other"},
+  {text:"Hola bebé 😍", type:"me"},
+  {text:"¿Sabes algo?", type:"other"},
+  {text:"¿Qué cosa? 😏", type:"me"},
+  {text:"Que me haces muy feliz", type:"other"},
+  {text:"Y tú a mí muchísimo 💖", type:"me"},
+  {text:"No sé qué haría sin ti", type:"other"},
+  {text:"Siempre voy a estar contigo 💕", type:"me"},
+  {text:"Prométemelo", type:"other"},
+  {text:"Te lo prometo ❤️", type:"me"},
+  {text:"Te amo ❤️", type:"me"}
+];
+
+const chat=document.getElementById('chat');
+const status=document.getElementById('status');
+let i=0;
+
+function getTime(){
+  const d=new Date();
+  return d.getHours()+":"+String(d.getMinutes()).padStart(2,'0');
+}
+
+function typingEffect(type, callback){
+  if(type==='other'){
+    status.textContent="escribiendo...";
+    setTimeout(()=>{
+      status.textContent="en línea";
+      callback();
+    },1000);
+  } else {
+    callback();
+  }
+}
+
+function showMessage(){
+  if(i<messages.length){
+
+    const data=messages[i]; // ✅ primero declaras
+
+    typingEffect(data.type, ()=>{
+
+      const m=document.createElement('div');
+      m.classList.add('msg', data.type);
+
+      const text=document.createElement('div');
+      text.textContent=data.text;
+
+      const time=document.createElement('div');
+      time.classList.add('time');
+      time.innerHTML=getTime() + (data.type==='me' ? '<span class="check">✔✔</span>' : '');
+
+      m.appendChild(text);
+      m.appendChild(time);
+
+      chat.appendChild(m);
+      chat.scrollTop=chat.scrollHeight;
+
+      const audio=new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');
+      audio.play();
+
+      i++;
+      setTimeout(showMessage,1200);
+    });
+  }
+}
+
+showMessage();
+
+// 👉 click en perfil
+document.getElementById('avatar').addEventListener('click',()=>{
+  alert('💖 Mi amor:\nEres lo mejor que me ha pasado. Te amo muchísimo ❤️');
+});
+</script>
+</script>
+
+</body>
+</html>

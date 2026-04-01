@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Tu Notita ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--celeste:#e6f6ff;
+--celeste-oscuro:#8ed0ff;
+--texto:#1a2a3a;
+--papel:#fffefc;
+--sombra:rgba(0,0,0,0.08);
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#ffffff,#eef7ff);
+font-family:'Montserrat',sans-serif;
+color:var(--texto);
+}
+
+/* CONTENEDOR */
+.stage{
+text-align:center;
+animation:fadeIn 1s ease;
+}
+
+/* IMAGEN */
+.note-thumb{
+cursor:pointer;
+display:inline-block;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 10px 25px var(--sombra);
+transition:.3s;
+}
+
+.note-thumb:hover{
+transform:translateY(-8px) scale(1.03);
+}
+
+.note-thumb img{
+display:block;
+width:280px;
+}
+
+/* TEXTO */
+.title{
+margin-top:12px;
+font-weight:500;
+color:#6aaed6;
+}
+
+/* CARTA */
+.sheet-wrap{
+display:none;
+margin-top:30px;
+animation:fadeInUp .8s ease;
+}
+
+.sheet{
+position:relative;
+margin:auto;
+width:680px;
+max-width:92%;
+background:var(--papel);
+border-radius:16px;
+padding:32px;
+box-shadow:0 20px 40px var(--sombra);
+border:3px solid var(--celeste);
+overflow:hidden;
+}
+
+/* FONDO SUAVE */
+.sheet::before{
+content:'';
+position:absolute;
+inset:0;
+background:radial-gradient(circle at 20% 20%, rgba(142,208,255,0.1), transparent 40%),
+radial-gradient(circle at 80% 30%, rgba(142,208,255,0.08), transparent 40%);
+}
+
+/* TITULO */
+.sheet h1{
+font-family:'Playfair Display',serif;
+font-size:32px;
+margin-bottom:12px;
+color:var(--celeste-oscuro);
+}
+
+/* CARTA TEXTO */
+.letter{
+background:rgba(255,255,255,0.7);
+padding:20px;
+border-radius:12px;
+border:1px dashed rgba(142,208,255,0.5);
+backdrop-filter:blur(3px);
+text-align:left;
+}
+
+.letter p{
+line-height:1.7;
+margin:0 0 12px;
+}
+
+/* BOTON */
+.back-btn{
+margin-top:18px;
+background:var(--celeste-oscuro);
+border:none;
+padding:10px 20px;
+border-radius:20px;
+color:white;
+cursor:pointer;
+transition:.2s;
+}
+
+.back-btn:hover{
+transform:scale(1.05);
+}
+
+/* CORAZONES */
+.hearts{
+position:absolute;
+inset:0;
+pointer-events:none;
+overflow:hidden;
+}
+
+.heart{
+position:absolute;
+width:16px;
+height:16px;
+background:var(--celeste-oscuro);
+transform:rotate(-45deg);
+animation:floatUp linear forwards;
+}
+
+.heart:before,
+.heart:after{
+content:'';
+position:absolute;
+width:16px;
+height:16px;
+background:var(--celeste-oscuro);
+border-radius:50%;
+}
+
+.heart:before{top:-8px;}
+.heart:after{left:8px;}
+
+/* ANIMACIONES */
+@keyframes floatUp{
+0%{transform:translateY(0) rotate(-45deg);opacity:1}
+100%{transform:translateY(-400px) rotate(-45deg);opacity:0}
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes fadeInUp{
+from{opacity:0;transform:translateY(40px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:560px){
+.sheet{padding:20px}
+.sheet h1{font-size:24px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="stage">
+
+<div id="thumb" class="note-thumb">
+<img src="DIA9.png" alt="notita">
+</div>
+
+<div class="title">Te llegó algo bonito ✨</div>
+
+<div id="sheetWrap" class="sheet-wrap">
+
+<div class="sheet">
+<div class="hearts" id="hearts"></div>
+
+<h1>Mi niño hermoso 💙</h1>
+
+<div class="letter">
+
+<p>Feliz 3er <strong>NO</strong> cumpleaños ✨</p>
+
+<p>
+Quiero que sepas que eres alguien realmente especial.  
+Tienes una forma única de ser, de querer y de estar.
+</p>
+
+<p>
+Eres fuerte, dulce, auténtico… y tienes un corazón  
+que vale muchísimo más de lo que imaginas.
+</p>
+
+<p>
+Si algún día dudas de ti, recuerda que hay alguien  
+que cree en ti siempre, que te admira y que te quiere  
+más de lo que dice.
+</p>
+
+<br>
+
+<p>Con todo mi cariño,</p>
+<p><strong>Tu niña 🫧</strong></p>
+
+</div>
+
+</div>
+
+<button id="backBtn" class="back-btn">Cerrar 💙</button>
+
+</div>
+
+</div>
+
+<script>
+const thumb = document.getElementById('thumb');
+const sheetWrap = document.getElementById('sheetWrap');
+const heartsContainer = document.getElementById('hearts');
+const backBtn = document.getElementById('backBtn');
+
+let heartsInterval;
+
+thumb.addEventListener('click', ()=>{
+thumb.style.display='none';
+document.querySelector('.title').style.display='none';
+sheetWrap.style.display='block';
+
+/* activar corazones */
+heartsInterval=setInterval(()=>{
+const heart=document.createElement('div');
+heart.className='heart';
+heart.style.left=Math.random()*100+'%';
+heart.style.bottom='0px';
+heart.style.animationDuration=(3+Math.random()*3)+'s';
+heartsContainer.appendChild(heart);
+
+setTimeout(()=>heart.remove(),5000);
+},400);
+
+});
+
+backBtn.addEventListener('click', ()=>{
+sheetWrap.style.display='none';
+thumb.style.display='inline-block';
+document.querySelector('.title').style.display='block';
+clearInterval(heartsInterval);
+});
+</script>
+
+</body>
+</html>

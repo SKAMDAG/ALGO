@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 Jardín de Amor by @myeya2</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+body{
+margin:0;
+font-family:'Caveat', cursive;
+background:linear-gradient(#87CEEB 70%, #5cb85c 30%);
+height:100vh;
+overflow:hidden;
+}
+.cielo{
+height:70%;
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
+}
+.nota{
+background:#fffdf7;
+padding:30px 40px;
+border-radius:10px;
+color:#444;
+font-size:30px;
+text-align:center;
+box-shadow:0 15px 30px rgba(0,0,0,0.25);
+position:relative;
+max-width:420px;
+line-height:1.4;
+transform:rotate(-1deg);
+}
+.nota:after{
+content:"";
+position:absolute;
+right:0;
+top:0;
+border-width:0 40px 40px 0;
+border-style:solid;
+border-color:transparent #f1e9d6 transparent transparent;
+}
+.corazon{
+position:absolute;
+color:red;
+font-size:20px;
+animation:caer 5s linear forwards;
+}
+@keyframes caer{
+0%{transform:translateY(-20px);opacity:1;}
+100%{transform:translateY(500px);opacity:0;}
+}
+.suelo{
+height:30%;
+background:#5cb85c;
+display:grid;
+grid-template-columns:repeat(auto-fill, 110px);
+grid-auto-rows:160px;
+justify-content:center;
+align-content:start;
+gap:10px;
+padding-top:10px;
+cursor:pointer;
+}
+.flower{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:flex-start;
+transform:translateY(-60px);
+}
+.petals{
+width:40px;
+height:40px;
+position:relative;
+margin-bottom:-10px;
+transform:scale(0);
+animation:growPetal .6s forwards;
+animation-delay:1s;
+}
+.petal{
+width:18px;
+height:18px;
+border-radius:50%;
+position:absolute;
+}
+.p1{top:0; left:10px;}
+.p2{bottom:0; left:10px;}
+.p3{left:0; top:10px;}
+.p4{right:0; top:10px;}
+.center{
+width:12px;
+height:12px;
+background:yellow;
+border-radius:50%;
+position:absolute;
+top:14px;
+left:14px;
+}
+.stem{
+width:6px;
+height:0;
+background:green;
+animation:growStem 1s forwards;
+}
+.label{
+margin-top:8px;
+font-size:14px;
+color:white;
+text-shadow:1px 1px 3px black;
+text-align:center;
+max-width:90px;
+line-height:1.2;
+}
+@keyframes growStem{
+from{height:0;}
+to{height:60px;}
+}
+@keyframes growPetal{
+from{transform:scale(0);}
+to{transform:scale(1);}
+}
+@media(max-width:600px){
+.nota{
+font-size:24px;
+padding:25px;
+}
+.suelo{
+grid-template-columns:repeat(auto-fill, 80px);
+grid-auto-rows:150px;
+}
+}
+</style>
+</head>
+<body>
+<div class="cielo">
+<div class="nota">
+💌 Para ti...<br>
+Gracias por estar en mi vida.<br>
+Cada flor representa lo que siento por ti.
+</div>
+</div>
+<div class="suelo" onclick="crearFlor()"></div>
+<script>
+const mensajes=[
+"Te quiero 🤍",
+"Te adoro ✨",
+"Te amo ❤️",
+"Eres especial 🌸",
+"Me haces feliz 🌷",
+"Me importas 💫",
+"Mi osito hermoso",
+"Eres mi alegría ☀️",
+"Siempre contigo 🌼",
+"Mi felicidad 💕",
+"Mi persona favorita 🤍",
+"Mi paz ✨",
+"Mi lugar seguro 🌷",
+"Mi sonrisa diaria ☀️",
+"Mi luz 🌟",
+"Mi adoración",
+"Mi mundo entero",
+"Mi motor y motivo",
+"Mi todo ❤️"
+];
+const colores=[
+"#ff4d6d",
+"#ff85a2",
+"#ffb3c6",
+"#ffd166",
+"#c77dff",
+"#90dbf4",
+"#f72585"
+];
+function crearFlor(){
+const suelo=document.querySelector(".suelo");
+const color=colores[Math.floor(Math.random()*colores.length)];
+const flor=document.createElement("div");
+flor.className="flower";
+const petals=document.createElement("div");
+petals.className="petals";
+petals.innerHTML=`
+<div class="petal p1" style="background:${color}"></div>
+<div class="petal p2" style="background:${color}"></div>
+<div class="petal p3" style="background:${color}"></div>
+<div class="petal p4" style="background:${color}"></div>
+<div class="center"></div>
+`;
+const stem=document.createElement("div");
+stem.className="stem";
+const label=document.createElement("div");
+label.className="label";
+label.textContent=mensajes[Math.floor(Math.random()*mensajes.length)];
+flor.appendChild(petals);
+flor.appendChild(stem);
+flor.appendChild(label);
+suelo.appendChild(flor);
+}
+function crearCorazon(){
+const cielo=document.querySelector(".cielo");
+const corazon=document.createElement("div");
+corazon.className="corazon";
+corazon.innerHTML="❤";
+corazon.style.left=Math.random()*100+"%";
+corazon.style.fontSize=(15+Math.random()*20)+"px";
+cielo.appendChild(corazon);
+setTimeout(()=>{
+corazon.remove();
+},5000);
+}
+setInterval(crearCorazon,500);
+</script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Primer NO Cumpleaños.❤️</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#e4f4fb;
+font-family:"Georgia", serif;
+}
+
+.container{
+position:relative;
+text-align:center;
+}
+
+.heart{
+font-size:220px;
+cursor:pointer;
+animation:latido 1s infinite;
+position:relative;
+display:inline-block;
+user-select:none;
+}
+
+.heart span{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:28px;
+font-weight:bold;
+color:white;
+text-shadow:0 2px 6px rgba(0,0,0,0.5);
+pointer-events:none;
+}
+
+@keyframes latido{
+0%{transform:scale(1);}
+50%{transform:scale(1.15);}
+100%{transform:scale(1);}
+}
+
+.carta{
+display:none;
+width:380px;
+background:#fffdf7;
+padding:35px 25px;
+border-radius:10px;
+box-shadow:0 15px 30px rgba(0,0,0,0.25);
+text-align:left;
+line-height:1.6;
+position:relative;
+}
+
+.cerrar{
+position:absolute;
+top:10px;
+right:15px;
+font-size:22px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.abierta .carta{
+display:block;
+}
+
+.abierta .heart{
+display:none;
+}
+
+h2{
+text-align:center;
+margin-top:0;
+}
+.pinguino{
+display:none;
+width:400px;
+animation:saludo 1s ease;
+}
+
+@keyframes saludo{
+0%{transform:translateY(50px);opacity:0;}
+100%{transform:translateY(0);opacity:1;}
+}
+</style>
+</head>
+
+<script>
+
+const diaActual = 1;
+
+const fechaInicio = new Date("2026-03-01");
+const fechaDesbloqueo = new Date(fechaInicio);
+fechaDesbloqueo.setDate(fechaInicio.getDate() + (diaActual-1));
+
+const ahora = new Date();
+
+if(ahora < fechaDesbloqueo){
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.innerHTML = `
+      <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:Arial;text-align:center;background:#e4f4fb;">
+        <div>
+          <h1>🔒 Aún no disponible</h1>
+          <p>Este día todavía está bloqueado</p>
+        </div>
+      </div>
+    `;
+  });
+}
+
+</script>
+
+<body>
+
+<div class="container" id="box">
+
+<!-- 🩵 CORAZON -->
+<div class="heart" onclick="abrirCarta()">
+🩵
+<span>Clickcito.</span>
+</div>
+
+<!-- 💌 CARTA -->
+<div class="carta" onclick="mostrarPinguino()">
+
+
+<h2>HI BABY!🫧</h2>
+<p>
+Feliz primer <strong>NO</strong> cumpleaños muñeco mío. 
+Quizás ya entendiste de que va esto,
+y sino pues lo entenderás justo ahora. JAJAJAJAJA. 
+<br><br>
+Bueno como ves hoy es tu primer NO cumpleaños,
+son un par, así que espero que los pases bonito cada uno.
+<br>
+Permiteme decirte que eres de las cosas más bonitas que 
+me ha pasado en la vida, que cada día que paso contigo 
+se vuelve de mis favoritos, que cuando no estás te extraño, 
+que eres mi persona favorita en el mundo y que te amo tantísimo.🩵
+<br><br>
+Talk to you soon. ✨
+</p>
+</div>
+<img src="fotodeldia1..jpg" id="pinguino" class="pinguino" onclick="irAlIndex()">
+</div>
+
+<script>
+function abrirCarta(){
+document.getElementById("box").classList.add("abierta");
+}
+
+function cerrarCarta(){
+document.getElementById("box").classList.remove("abierta");
+}
+
+function mostrarPinguino(){
+document.querySelector(".carta").style.display="none";
+document.getElementById("pinguino").style.display="block";
+}
+
+function irAlIndex(){
+  window.location.href = "index.html";
+}
+
+
+</script>
+
+</body>
+</html>

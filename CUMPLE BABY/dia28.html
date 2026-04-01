@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>28 NO Cumpleaños.💙</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+background: linear-gradient(135deg, #b1d0f0, #a5c9ec);
+font-family:'Inter',sans-serif;
+overflow:hidden;
+}
+
+/* PÁGINAS */
+.page{
+position:fixed;
+width:100%;height:100%;
+top:0;left:0;
+opacity:0;
+visibility:hidden;
+transition:.6s;
+}
+.page.active{
+opacity:1;
+visibility:visible;
+z-index:10;
+}
+
+/* CONTENEDOR */
+.container{
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+height:100%;
+}
+
+/* TEXTO */
+.instruction{
+font-family:'Playfair Display';
+font-size:28px;
+margin-bottom:60px;
+}
+
+/* FLOR */
+.flower{
+width:350px;height:350px;
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
+cursor:pointer;
+}
+
+.petal{
+position:absolute;
+width:50px;height:80px;
+background:linear-gradient(#fce4e7,#7fc9f3);
+border-radius:50%;
+}
+
+.petal1{transform:rotate(0deg) translateY(-50%);}
+.petal2{transform:rotate(45deg) translateY(-50%);}
+.petal3{transform:rotate(90deg) translateY(-50%);}
+.petal4{transform:rotate(135deg) translateY(-50%);}
+.petal5{transform:rotate(180deg) translateY(-50%);}
+.petal6{transform:rotate(225deg) translateY(-50%);}
+.petal7{transform:rotate(270deg) translateY(-50%);}
+.petal8{transform:rotate(315deg) translateY(-50%);}
+
+.center{
+width:40px;height:40px;
+background:#f5ce9c;
+border-radius:50%;
+position:absolute;
+}
+
+/* HOVER ANIMACIÓN */
+.flower:hover{
+animation:spin 6s infinite ease-in-out;
+}
+@keyframes spin{
+0%{transform:rotate(0);}
+50%{transform:rotate(360deg) scale(1.2);}
+100%{transform:rotate(0);}
+}
+
+/* LOADING */
+.loading{
+opacity:0;
+margin-top:20px;
+transition:.5s;
+}
+.loading.show{
+opacity:1;
+}
+
+/* MENSAJE */
+.mensaje-container{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+padding:20px;
+}
+
+.typing-text{
+font-family:'Playfair Display';
+font-size:20px; /* 🔥 más pequeña */
+font-weight:400;
+text-align:left;
+line-height:1.6;
+color:#444;
+letter-spacing:0px;
+}
+.message-box{
+background: rgba(255,255,255,0.7);
+backdrop-filter: blur(12px);
+border-radius: 25px;
+padding: 30px 25px;
+width: 85%;
+max-width: 480px;
+height: auto; /* 🔥 ya NO altura fija */
+box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+display:flex;
+flex-direction:column;
+gap:15px;
+border: 2px solid #a5c9ec;
+}
+
+/* BOTÓN */
+.back-btn{
+display: block;
+margin: 10px auto 0; /* 🔥 más pegado al texto */
+padding: 12px 25px;
+border-radius: 30px;
+border: none;
+cursor: pointer;
+opacity: 0;
+transition: .5s;
+}
+
+/* BRILLITOS */
+.sparkle{
+position:absolute;
+border-radius:50%;
+pointer-events:none;
+animation:float 5s linear infinite;
+filter: blur(0.5px);
+}
+@keyframes float{
+0%{
+transform:translateY(100vh) scale(0.3);
+opacity:0;
+}
+30%{
+opacity:1;
+}
+50%{
+transform:scale(1.2);
+}
+100%{
+transform:translateY(-10vh) scale(0.5);
+opacity:0;
+}
+}
+/* LOVE PAGE */
+.love-container{
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+height:100%;
+background:linear-gradient(#fff8e1,#fce4ec);
+}
+
+.love-text{
+font-size:60px;
+color:#530808;
+font-family:'Playfair Display';
+}
+
+.love-cursor{
+width:4px;height:60px;
+background:#a30c0c;
+display:inline-block;
+animation:blink 1s infinite;
+}
+
+svg{
+margin-top:30px;
+}
+
+path{
+stroke:#880e0e;
+stroke-width:3;
+fill:none;
+stroke-dasharray:300;
+stroke-dashoffset:300;
+}
+
+</style>
+</head>
+<script>
+const diaActual = 28;
+
+const fechaInicio = new Date("2026-03-01");
+const fechaDesbloqueo = new Date(fechaInicio);
+fechaDesbloqueo.setDate(fechaInicio.getDate() + (diaActual-1));
+
+const ahora = new Date();
+
+if(ahora < fechaDesbloqueo){
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.innerHTML = `
+      <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:Arial;text-align:center">
+        <div>
+          <h1>🔒 Aún no disponible</h1>
+          <p>Este día todavía está bloqueado</p>
+        </div>
+      </div>
+    `;
+  });
+}
+</script>
+
+<body>
+
+<!-- FLOR -->
+<div id="page-flower" class="page active">
+<div class="container">
+<div class="instruction">Puedes tocar la florcita. ;) ♥ </div>
+
+<div class="flower" onclick="showMessage()">
+<div class="petal petal1"></div>
+<div class="petal petal2"></div>
+<div class="petal petal3"></div>
+<div class="petal petal4"></div>
+<div class="petal petal5"></div>
+<div class="petal petal6"></div>
+<div class="petal petal7"></div>
+<div class="petal petal8"></div>
+<div class="center"></div>
+</div>
+
+<div id="loading" class="loading">Loading es más bonito que cargando, ¿no? ...</div>
+</div>
+</div>
+
+<!-- MENSAJE -->
+<div id="page-message" class="page">
+  <div class="mensaje-container">
+
+    <div class="message-box">
+
+      <div>
+        <div class="sparkles" id="sparkles"></div>
+        <h1 id="text" class="typing-text"></h1>
+      </div>
+
+      <button class="back-btn" id="btn" onclick="showLove()">Continue...♥</button>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- LOVE -->
+<div id="page-love" class="page">
+<div class="love-container">
+<h1 id="loveText" class="love-text"></h1>
+
+<svg width="120" height="120">
+<path id="heart" d="M50,85 C20,65 5,40 5,25 C5,15 15,5 25,5 C35,5 45,15 50,25 C55,15 65,5 75,5 C85,5 95,15 95,25 C95,40 80,65 50,85 Z"/>
+</svg>
+
+</div>
+</div>
+
+<script>
+
+// PÁGINAS
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+// FLOR CLICK
+function showMessage(){
+document.getElementById("loading").classList.add("show");
+
+setTimeout(()=>{
+showPage("page-message");
+startSparkles();
+type();
+},2000);
+}
+
+// BRILLITOS
+function startSparkles(){
+setInterval(()=>{
+let s=document.createElement("div");
+
+let size = Math.random()*8 + 4; // 🔥 tamaños diferentes
+let colors = ["#f2b1f8","#ffffff","#ffd6ff","#cdb4db"]; // 💙 colores suaves
+
+s.className="sparkle";
+s.style.width = size+"px";
+s.style.height = size+"px";
+s.style.left = Math.random()*100+"%";
+s.style.background = colors[Math.floor(Math.random()*colors.length)];
+s.style.boxShadow = `0 0 ${size*2}px ${s.style.background}`;
+
+document.getElementById("sparkles").appendChild(s);
+
+setTimeout(()=>s.remove(),5000);
+},100); // 🔥 MUCHOS más brillitos
+}
+
+// TYPE MENSAJE
+let msg = "Hola… soy yo otra vez\n" +
+"¿Qué tal te va?\n" +
+"Espero que muy bien.\n\n" +
+"Hoy no tengo mucho que decirte…\n" +
+"solo recordarte algo muy importante:\n" +
+"Eres la persona más guapisima de mi mundo.\n" +
+"¿Sabías eso? 🥺\n\n" +
+"Tu sonrisa me ilumina la vida y me alegra el alma… Ay no que cursi.WASCALA. \n" +
+"Pero bueno, soy la más afortunada por tenerte, muchachito 💙\n" +
+"Ojalá nunca me faltes.\n\n" +
+"Te amo mucho mi amor bonito. ♥";
+
+let i = 0; // 🔥 ESTO ES IMPORTANTE
+
+function type(){
+  const text = document.getElementById("text");
+
+  if(i === 0){
+    text.innerHTML = ""; // limpia antes de empezar
+  }
+
+  if(i < msg.length){
+    if(msg[i] === "\n"){
+      text.innerHTML += "<br>";
+    } else {
+      text.innerHTML += msg[i];
+    }
+    i++;
+    setTimeout(type, 40);
+  } else {
+    document.getElementById("btn").style.opacity = 1;
+
+    // 👇 opcional: quitar cursor al terminar
+    document.querySelector(".cursor").style.opacity = 0;
+  }
+}
+// LOVE PAGE
+function showLove(){
+showPage("page-love");
+setTimeout(typeLove,500);
+}
+
+let love="Feliz penùltimo NO Cumpleaños baby.🫧";
+let j=0;
+
+function typeLove(){
+if(j<love.length){
+document.getElementById("loveText").innerHTML+=love[j];
+j++;
+setTimeout(typeLove,120);
+}else{
+drawHeart();
+}
+}
+
+// CORAZÓN
+function drawHeart(){
+let heart=document.getElementById("heart");
+heart.style.transition="3s";
+heart.style.strokeDashoffset="0";
+
+setTimeout(()=>{
+heart.style.fill="";
+},2000);
+}
+
+</script>
+
+</body>
+</html>

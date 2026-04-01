@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Juego de Amor 💖</title>
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(#cceeff,#ffe6cc);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+}
+
+#card{
+  background:rgba(255,255,255,0.3);
+  backdrop-filter:blur(10px);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.2);
+  width:320px;
+}
+
+h2{ color:#ff6699; }
+
+button{
+  display:block;
+  width:100%;
+  margin:10px 0;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#ff99bb;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{ background:#ff6699; }
+
+#final, #second{
+  display:none;
+  font-size:18px;
+  color:#ff3366;
+}
+/* 🎈 Globos más realistas */
+.balloon{
+  position:absolute;
+  bottom:-80px;
+  width:40px;
+  height:55px;
+  border-radius:50% 50% 45% 45%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.2) 40%, transparent 41%), linear-gradient(145deg, var(--c1), var(--c2));
+  box-shadow: inset -4px -8px 10px rgba(0,0,0,0.15), 0 6px 10px rgba(0,0,0,0.15);
+  opacity:0.95;
+  animation: floatBalloon linear forwards;
+}
+
+.balloon::before{
+  content:"";
+  position:absolute;
+  top:8px;
+  left:8px;
+  width:10px;
+  height:14px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.8);
+  filter:blur(1px);
+}
+
+.balloon::after{
+  content:"";
+  position:absolute;
+  top:100%;
+  left:50%;
+  width:2px;
+  height:36px;
+  transform:translateX(-50%) rotate(8deg);
+  background:transparent;
+  border-left:2px solid rgba(120,120,120,0.8);
+  border-radius:50% 0 50% 0;
+  box-shadow: 0 0 2px rgba(0,0,0,0.15);
+}
+
+/* ligera variación para que no todas las cuerdas sean iguales */
+.balloon:nth-child(odd)::after{
+  transform:translateX(-50%) rotate(-10deg);
+  height:40px;
+}
+.balloon:nth-child(3n)::after{
+  transform:translateX(-50%) rotate(5deg);
+  height:34px;
+}
+
+@keyframes floatBalloon{
+  0%{ transform:translateY(0) translateX(0); opacity:1; }
+  50%{ transform:translateY(-50vh) translateX(10px); }
+  100%{ transform:translateY(-110vh) translateX(-10px); opacity:0; }
+
+  100%{ transform:translateY(-110vh); opacity:0; }
+}
+</style>
+</head>
+<body>
+
+<div id="card">
+  <h2 id="question">¿Quién te ama más? 😏</h2>
+
+  <div id="options">
+    <button onclick="next()">Tú 💙</button>
+    <button onclick="next()">Yo 😎</button>
+  </div>
+
+  <div id="final"></div>
+  <button id="nextBtn" style="display:none;" onclick="showSecond()">Abrir sorpresa 💌</button>
+
+  <div id="second"></div>
+</div>
+
+<script>
+let step=0;
+
+function next(){
+  step++;
+
+  const q = document.getElementById('question');
+  const o = document.getElementById('options');
+  const f = document.getElementById('final');
+
+  if(step===1){
+    q.innerHTML = "¿Quién piensa más en el otro? 💭";
+    o.innerHTML = `
+      <button onclick="next()">Yo 😍</button>
+      <button onclick="next()">Tú 😏</button>
+    `;
+  }
+  else if(step===2){
+    q.innerHTML = "¿Quién es el más lindo? 😌";
+    o.innerHTML = `
+      <button onclick="next()">Tú 💖</button>
+      <button onclick="next()">Yo 😎</button>
+    `;
+  }
+  else{
+    q.style.display="none";
+    o.style.display="none";
+    f.style.display="block";
+
+    typeMessage("💖 No importa lo que elijas... siempre serás el amor de mi vida. Te amo muchísimo 💕", f, ()=>{
+      document.getElementById('nextBtn').style.display='block';
+    });
+  }
+}
+
+function typeMessage(text, element, callback){
+  element.innerHTML="";
+  let i=0;
+  function type(){
+    if(i<text.length){
+      element.innerHTML += text[i];
+      i++;
+      setTimeout(type,30);
+    } else if(callback){
+      callback();
+    }
+  }
+  type();
+}
+
+function showSecond(){
+  const f = document.getElementById('final');
+  const btn = document.getElementById('nextBtn');
+  const second = document.getElementById('second');
+
+  f.style.display="none";
+  btn.style.display="none";
+  second.style.display="block";
+
+  typeMessage("🎉 Feliz no cumpleaños baby 💖 Te amo demasiado, eres mi persona favorita en todo el mundo 💕", second);
+}
+// 🎈 crear globos
+function randomColor(){
+  const colors=["#ff6b6b","#ffd93d","#6bcBef","#b28dff","#ff9ec4"];
+  return colors[Math.floor(Math.random()*colors.length)];
+}
+
+function createBalloon(){
+  const b=document.createElement('div');
+  b.classList.add('balloon');
+
+  const colors=[
+    ["#ff6b6b","#ff3b3b"],
+    ["#ffd93d","#ffb703"],
+    ["#6bcBef","#3a86ff"],
+    ["#b28dff","#8338ec"],
+    ["#ff9ec4","#ff4d6d"]
+  ];
+
+  const c=colors[Math.floor(Math.random()*colors.length)];
+  b.style.setProperty('--c1', c[0]);
+  b.style.setProperty('--c2', c[1]);
+
+  const size=Math.random()*20+35;
+  b.style.width=size+'px';
+  b.style.height=(size*1.3)+'px';
+
+  b.style.left=Math.random()*100+'vw';
+  b.style.animationDuration=(Math.random()*4+5)+'s';
+
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),9000);
+}
+
+setInterval(createBalloon,500);
+</script>
+
+</body>
+</html>
+
+
+
+
