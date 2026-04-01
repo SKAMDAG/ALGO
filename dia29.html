@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ultimo NO Cumpleaños.💚</title>
+
+<style>
+body{
+margin:0;
+overflow:hidden;
+font-family: 'Courier New', monospace;
+background:black;
+}
+
+/* MATRIX */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:0;
+}
+
+/* TEXTO */
+#decode{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+color:#6bf8e1;
+font-size:28px;
+text-align:center;
+letter-spacing:2px;
+opacity:0;
+z-index:2;
+}
+
+.cursor{
+display:inline-block;
+width:2px;
+background:#00fff2;
+margin-left:5px;
+animation:blink 1s infinite;
+}
+@keyframes blink{
+0%,50%,100%{opacity:1;}
+25%,75%{opacity:0;}
+}
+
+/* LOADING */
+.loading{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+text-align:center;
+color:#79fcfc;
+display:none;
+z-index:2;
+}
+
+.bar{
+width:260px;
+height:10px;
+border:1px solid #68eef3;
+margin-top:10px;
+}
+
+.progress{
+height:100%;
+width:0%;
+background:#06dcf8;
+}
+
+/* CARTA */
+.card{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%) scale(0.9);
+width:360px;
+background:white;
+border-radius:20px;
+padding:20px;
+text-align:justify;
+opacity:0;
+transition:0.5s;
+z-index:3;
+box-shadow:0 0 20px rgba(0,255,157,0.3);
+font-family:'Poppins', sans-serif;
+}
+
+.visible{
+opacity:1;
+transform:translate(-50%, -50%) scale(1);
+}
+
+h2{ color:#1ba7ac; }
+
+p{
+color:#333;
+font-size:14px;
+line-height:1.6;
+}
+
+button{
+margin-top:10px;
+padding:6px 15px;
+border:none;
+border-radius:10px;
+background:#6bf8e1;
+cursor:pointer;
+}
+</style>
+</head>
+<script>
+const diaActual = 29;
+
+const fechaInicio = new Date("2026-03-01");
+const fechaDesbloqueo = new Date(fechaInicio);
+fechaDesbloqueo.setDate(fechaInicio.getDate() + (diaActual-1));
+
+const ahora = new Date();
+
+if(ahora < fechaDesbloqueo){
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.innerHTML = `
+      <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:Arial;text-align:center">
+        <div>
+          <h1>🔒 Aún no disponible</h1>
+          <p>Este día todavía está bloqueado</p>
+        </div>
+      </div>
+    `;
+  });
+}
+</script>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div id="decode"></div>
+
+<div class="loading" id="loading">
+<div>Vamos a ver...</div>
+<div class="bar"><div class="progress" id="progress"></div></div>
+</div>
+
+<div class="card" id="card">
+<h2>HOLAAAAAAAAA MI AMOR.🩵</h2>
+<p>
+Bueno mi corazón hermoso, hemos llegado al final,
+espero que hayas disfrutado todos tus 
+NO cumpleaños, fueron un poco complicados, 
+casi ni lo logro, demasiado pensar para hacerlos
+todos bien y todos diferentes pero bueno, gracias YOUTUBE
+siempre te voy a amar y a mi bestie CHATGPT OBVIO sin ella, 
+NADA. En fin, fue divertido en verdad, aunque estresante, 
+y nada, espero que tus NO cumpleaños hayan sido bonitos.
+</p>
+<p>
+Gracias por existir, por quedarte y por tener MUCHA paciencia.
+TE AMOOOOO.
+</p>
+<button onclick="location.reload()">SEE YOU TOMORROW.💚</button>
+</div>
+
+<script>
+/* MATRIX */
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+let letters = "アァカサタナハマヤャラワ0123456789";
+letters = letters.split("");
+
+let fontSize = 14;
+let columns = canvas.width / fontSize;
+
+let drops = [];
+for(let x = 0; x < columns; x++) drops[x] = 1;
+
+let matrixInterval = setInterval(draw, 33);
+
+function draw(){
+ctx.fillStyle = "rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle = "#00ff9d";
+ctx.font = fontSize + "px monospace";
+
+for(let i = 0; i < drops.length; i++){
+let text = letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+
+if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
+drops[i] = 0;
+
+drops[i]++;
+}
+}
+
+/* SECUENCIA */
+setTimeout(startDecode, 4000);
+
+function startDecode(){
+clearInterval(matrixInterval);
+canvas.style.display="none";
+
+const phrase = "FELIZ ULTIMO NO CUMPLEAÑOS AMOR. 🩵";
+const decodeEl = document.getElementById("decode");
+
+decodeEl.style.opacity = 1;
+
+let i = 0;
+
+let typing = setInterval(()=>{
+decodeEl.innerHTML = phrase.substring(0,i) + '<span class="cursor"></span>';
+i++;
+
+if(i > phrase.length){
+clearInterval(typing);
+decodeEl.innerHTML = phrase;
+
+/* ESPERA */
+setTimeout(startLoading, 2000);
+}
+},80);
+}
+
+/* LOADING */
+function startLoading(){
+document.getElementById("decode").style.display="none";
+document.getElementById("loading").style.display="block";
+
+let progress = document.getElementById("progress");
+let width = 0;
+
+let load = setInterval(()=>{
+width++;
+progress.style.width = width + "%";
+
+if(width >= 100){
+clearInterval(load);
+document.getElementById("loading").style.display="none";
+document.getElementById("card").classList.add("visible");
+}
+},35);
+}
+</script>
+
+</body>
+</html>
