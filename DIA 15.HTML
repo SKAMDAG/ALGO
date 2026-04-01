@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15VO NO CUMPLEAÑOS.☀️</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito&display=swap." 
+rel="stylesheet">
+<style>
+body{
+margin:0;
+font-family:'Patrick Hand', cursive;
+background:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+text-align:center;
+overflow:hidden;
+}
+.texto{
+font-size:34px;
+margin-bottom:40px;
+padding:20px;
+line-height:1.4;
+}
+button{
+padding:12px 35px;
+font-size:20px;
+border-radius:30px;
+border:2px solid rgb(128, 182, 243);
+background:rgb(186, 236, 248);
+cursor:pointer;
+font-family:'Patrick Hand', cursive;
+transition:0.3s;
+}
+button:hover{
+background:rgb(150, 217, 248);
+color:white;
+}
+.corazon{
+position:absolute;
+color:#6be9ff;
+animation:flotar linear infinite;
+opacity:0.8;
+}
+@keyframes flotar{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
+}
+.sol{
+width:520px;
+max-width:95vw;
+animation:latir 4s infinite ease-in-out;
+filter:
+drop-shadow(0 0 10px #FFD54F)
+drop-shadow(0 0 20px #FFC107)
+drop-shadow(0 0 45px #FFB300);
+}
+@keyframes latir{
+0%{transform:scale(1);}
+50%{transform:scale(1.05);}
+100%{transform:scale(1);}
+}
+@media(max-width:600px){
+.texto{
+font-size:28px;
+}
+.sol{
+width:360px;
+}
+}
+</style>
+</head>
+<body>
+<div>
+<div id="pantalla"></div>
+<button id="boton" onclick="siguiente()">❤️‍🩹</button>
+</div>
+<script>
+const textos=[
+"Feliz 15vo <strong>NO</strong> cumpleaños, el tema de hoy es:<br>Un pequeño recordatorio de cosas que no te digo<br>frecuentemente,pero que debes recordar...",
+"Pedí lo mejor para mi vida<br>y llegaste tú.🫧",
+"Con verte un ratito<br>soy la más feliz.🥹",
+"Me escribes<br>y me alegras el día.☀️",
+"Mi lugar favorito<br>siempre será contigo.❤️‍🩹",
+"Eres de las cosas más maravillosas que me han pasado.😌",
+"Soy demasiado afortunada por tenerte<br>como el amor de mi vida. 🥰",
+"Contigo quiero escribir<br>una historia sin final, Amén.🩵",
+"Si tú me lo permites,<br>te amaré toda la vida.😇"
+];
+let indice=0;
+const pantalla=document.getElementById("pantalla");
+const boton=document.getElementById("boton");
+function mostrarTexto(){
+pantalla.innerHTML=`<div class="texto">${textos[indice]}</div>`;
+}
+function siguiente(){
+indice++;
+if(indice<textos.length){
+mostrarTexto();
+}else{
+pantalla.innerHTML=`
+<svg class="sol" viewBox="0 0 220 220">
+<defs>
+<radialGradient id="gradSol" cx="50%" cy="50%" r="50%">
+<stop offset="0%" stop-color="#FFF176"/>
+<stop offset="100%" stop-color="#FFD54F"/>
+</radialGradient>
+</defs>
+<g stroke="#F4B400" stroke-width="8" stroke-linecap="round">
+<line x1="110" y1="5" x2="110" y2="30"/>
+<line x1="175" y1="25" x2="160" y2="45"/>
+<line x1="215" y1="85" x2="190" y2="90"/>
+<line x1="215" y1="135" x2="190" y2="130"/>
+<line x1="175" y1="195" x2="160" y2="175"/>
+<line x1="110" y1="215" x2="110" y2="190"/>
+<line x1="45" y1="195" x2="60" y2="175"/>
+<line x1="5" y1="135" x2="30" y2="130"/>
+<line x1="5" y1="85" x2="30" y2="90"/>
+<line x1="45" y1="25" x2="60" y2="45"/>
+</g>
+<circle cx="110" cy="110" r="80" fill="url(#gradSol)"/>
+<text x="110" y="80" text-anchor="middle" font-size="16" fill="#333">
+<tspan x="110" dy="0">Porque tú eres</tspan>
+<tspan x="110" dy="22">el rayito de sol</tspan>
+<tspan x="110" dy="22">que ilumina</tspan>
+<tspan x="110" dy="22">cada día de mi vida.</tspan>
+</text>
+</svg>
+<br><br>
+<button onclick="volver()">NOS VEMOS PRONTO.❤️‍🩹</button>
+`;
+boton.style.display="none";
+}
+}
+function volver(){
+indice=0;
+boton.style.display="inline-block";
+mostrarTexto();
+}
+mostrarTexto();
+function crearCorazon(){
+const corazon=document.createElement("div");
+corazon.className="corazon";
+corazon.innerHTML="❤";
+corazon.style.left=Math.random()*100+"vw";
+corazon.style.fontSize=(Math.random()*18+12)+"px";
+corazon.style.animationDuration=(Math.random()*4+5)+"s";
+document.body.appendChild(corazon);
+setTimeout(()=>{corazon.remove();},9000);
+}
+setInterval(crearCorazon,600);
+</script>
+</body>
+</html>

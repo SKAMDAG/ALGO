@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>2do NO Cumpleaños.❤️</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+background: linear-gradient(180deg,#2432f5,#35b6f1);
+font-family: 'Arial', sans-serif;
+}
+
+.scene{
+position:relative;
+width:100%;
+height:100%;
+}
+
+.floating-heart{
+position:absolute;
+bottom:-50px;
+font-size:22px;
+animation: floatUp 10s linear infinite;
+opacity:.8;
+}
+
+@keyframes floatUp{
+from{ transform:translateY(0) scale(1); opacity:0; }
+20%{ opacity:1; }
+to{ transform:translateY(-120vh) scale(1.5); opacity:0; }
+}
+
+.word{
+position:absolute;
+color:white;
+font-size:22px;
+font-weight:bold;
+animation: floatWords 12s linear infinite;
+text-shadow:0 0 12px rgba(255,255,255,0.9);
+}
+
+@keyframes floatWords{
+from{ transform:translateY(100vh); opacity:0; }
+to{ transform:translateY(-120vh); opacity:1; }
+}
+
+.center{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+}
+
+.heart-svg{
+width:650px;
+height:600px;
+display:block;
+margin:auto;
+filter: drop-shadow(0 0 25px rgba(255,255,255,0.6));
+}
+
+.slide{
+opacity:0;
+animation: slide 12s infinite;
+}
+
+.slide:nth-child(1){ animation-delay:0s; }
+.slide:nth-child(2){ animation-delay:4s; }
+.slide:nth-child(3){ animation-delay:8s; }
+
+@keyframes slide{
+0%{opacity:0;}
+10%{opacity:1;}
+30%{opacity:1;}
+40%{opacity:0;}
+100%{opacity:0;}
+}
+
+.btn-carta{
+margin-top:25px;
+padding:15px 35px;
+font-size:20px;
+background:white;
+color:#1a1379;
+border:none;
+border-radius:50px;
+cursor:pointer;
+font-weight:bold;
+box-shadow:0 0 25px rgba(255,255,255,.7);
+transition:.25s;
+}
+
+.btn-carta:hover{
+transform:scale(1.1);
+}
+
+.carta{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.7);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.carta-contenido{
+background:white;
+padding:35px;
+width:80%;
+max-width:500px;
+border-radius:25px;
+box-shadow:0 0 50px rgba(100,125,255,.4);
+color:#000; /* TEXTO NEGRO */
+}
+
+.carta-contenido h2{
+margin-top:0;
+text-align:left;
+color:#000;
+}
+
+.carta-contenido p{
+text-align:left;
+line-height:1.7;
+font-size:14px;
+margin-bottom:15px;
+color:#000;
+}
+
+.carta-contenido b{
+color:#000;
+}
+
+.cerrar{
+margin-top:20px;
+background:#62d0f1;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:25px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+<div class="center">
+
+<svg class="heart-svg" viewBox="0 0 512 512">
+<defs>
+<clipPath id="heartClip">
+<path d="
+M256 472
+C256 472 40 300 40 180
+C40 80 140 40 220 110
+C240 130 256 150 256 150
+C256 150 272 130 292 110
+C372 40 472 80 472 180
+C472 300 256 472 256 472 Z"/>
+</clipPath>
+</defs>
+
+<image class="slide" href="FOTOS:FOTO 1 DIA 2.jpeg" width="500" height="630" clip-path="url(#heartClip)" />
+<image class="slide" href="FOTO 2 DIA 2.JPEG" width="500" height="655" clip-path="url(#heartClip)" />
+<image class="slide" href="fotos:" width="580" height="590" clip-path="url(#heartClip)" />
+</svg>
+
+<button class="btn-carta" onclick="abrirCarta()">HOLAAAAAAAAA.</button>
+
+</div>
+</div>
+
+<div class="carta" id="carta">
+<div class="carta-contenido">
+<br>
+<h2>Feliz 2do <strong>NO</strong>cumpleaños Pa'.❤️</h2>
+
+<p>
+
+Desde que comparto un pedacito de mi vida contigo, muchas cosas cambiaron para bien.
+Me enseñaste que el amor también es paciencia, apoyo y compañía, incluso en los días difíciles.
+Me hace mucha ilusión pensar que dejaremos de compartir solo un pedacito de esto llamado vida
+y algún dia compartiremos la vida entera, que cosa más bonita esta de llamarte novio. 
+</p>
+
+<p>
+Gracias por cada detalle que quizás tú a veces no ves pero están ahí, 
+por cada risa compartida y por quedarte cuando las cosas no son perfectas.
+Contigo he aprendido a confiar más, a no tener miedo a seguir amando de 
+forma bonita, a ser más fuerte y dedicada, a ser mejor persona cada dia 
+o al menos intentarlo, a creer en nosotros, en lo que somos y seremos.
+<br>
+
+<p>
+No digo que todo sea fácil, ambos sabemos que no, pero sí sé que vale la pena.
+Quiero seguir construyendo momentos contigo, aprendiendo juntos y creciendo como personas 
+y como pareja. Eres una parte muy importante de mi vida y no quiero dar eso por sentado,
+te amo con todo mi corazón aunque me arruines las sorpresas, ¿De verdad soy tan obvia?
+</p>
+
+<p><b>Con todo el amor que tengo,<br>
+Tu niña.💖</b></p>
+
+<button class="cerrar" onclick="cerrarCarta()">Hasta Mañana.</button>
+
+</div>
+</div>
+
+<script>
+const scene=document.querySelector('.scene');
+
+function crearCorazon(){
+const h=document.createElement('div');
+h.className='floating-heart';
+h.innerHTML='♥️';
+h.style.left=Math.random()*100+'vw';
+h.style.fontSize=18+Math.random()*30+'px';
+h.style.animationDuration=6+Math.random()*6+'s';
+scene.appendChild(h);
+setTimeout(()=>h.remove(),12000);
+}
+
+function crearPalabra(){
+const palabras=[
+'Te amo mucho mi niño.',
+'Usted es el más bonito del mundo.',
+'TE AMOOOOOOOOOOOO.',
+'Gracias por tu paciencia.',
+'Te adoro vida mia.',
+'Gracias por tu risa.',
+'Gracias por tu amor.',
+'Gracias por tu apoyo.',
+'Gracias por ser el mejor novio.',
+'Gracias por ser luz siempre.',
+'Gracias por absolutamente todo.'
+];
+const w=document.createElement('div');
+w.className='word';
+w.textContent=palabras[Math.floor(Math.random()*palabras.length)];
+w.style.left=Math.random()*80+'vw';
+w.style.animationDuration=8+Math.random()*6+'s';
+scene.appendChild(w);
+setTimeout(()=>w.remove(),12000);
+}
+
+setInterval(crearCorazon,400);
+setInterval(crearPalabra,900);
+
+function abrirCarta(){
+document.getElementById('carta').style.display='flex';
+}
+function cerrarCarta(){
+document.getElementById('carta').style.display='none';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>26 NO Cumpleaños💙</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(#cceeff, #ffe6cc);
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    h1 { color: #66adff; margin-top: 20px; }
+
+    #words {
+      position: absolute;
+      top: 100px;
+      right: 40px;
+      width: 260px;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 15px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      color: #080808;
+      font-size: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 12px;
+      text-align: left;
+      border: 1px solid rgba(255,255,255,0.4);
+      animation: fadeIn 1s ease;
+    }
+
+    .word-item {
+      padding: 4px 6px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .word-item.done {
+      text-decoration: line-through;
+      color: #bbb;
+      background: rgba(255,255,255,0.5);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(14, 30px);
+      gap: 5px;
+      justify-content: center;
+      margin-top: 20px;
+      user-select: none;
+    }
+
+    .cell {
+      width: 30px; height: 30px; background: white; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-weight: bold; color: #66dbff;
+    }
+
+    .selected { background: #ffd6e7; }
+    .found { background: #ff99e6; color: white; }
+
+    #message {
+      position: absolute;
+      top: 420px;
+      right: 40px;
+      width: 260px;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 15px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      color: #59ced6;
+      font-size: 16px;
+      text-align: left;
+      border: 1px solid rgba(255,255,255,0.4);
+      display: none; /* oculto completamente hasta ganar */
+      animation: fadeIn 1s ease;
+      overflow: hidden;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: sparkleAnim 1.5s linear forwards;
+    }
+
+    @keyframes sparkleAnim {
+      0% { transform: scale(0) translateY(0); opacity: 1; }
+      100% { transform: scale(1.5) translateY(-20px); opacity: 0; }
+    }
+
+    /* Corazones */
+    .heart { position: absolute; width: 20px; height: 20px; background: red; transform: rotate(45deg); animation: float 6s linear infinite; }
+    .heart::before, .heart::after { content: ''; position: absolute; width: 20px; height: 20px; background: red; border-radius: 50%; }
+    .heart::before { top: -10px; }
+    .heart::after { left: -10px; }
+    @keyframes float { 0% { transform: translateY(100vh) rotate(45deg); opacity: 1; } 100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; } }
+  </style>
+</head>
+<body>
+
+<h1>Holis, encuentra las palabras.💙</h1>
+<div id="words"></div>
+<div id="grid"></div>
+<div id="message"></div>
+
+<script>
+// 👉 Personaliza el nombre aquí
+const nombre = "MI AMOR";
+
+const words = [
+  "MUÑECO","NOCUMPLEAÑOS","BABY","AZUL","NIÑO","NOVIO","LINDO","AMOR","GUAPISIMO","ASTRIPERCITO"
+];
+
+// Mostrar palabras
+const wordsContainer = document.getElementById('words');
+wordsContainer.innerHTML = words.map(w => `<div class="word-item" data-word="${w}">💖 ${w}</div>`).join('');
+
+const gridSize = 14;
+let grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(''));
+
+// Direcciones: horizontal, vertical, diagonales
+const directions = [
+  [0,1],[1,0],[1,1],[-1,1]
+];
+
+function placeWord(word) {
+  let placed = false;
+  while (!placed) {
+    const dir = directions[Math.floor(Math.random()*directions.length)];
+    let row = Math.floor(Math.random()*gridSize);
+    let col = Math.floor(Math.random()*gridSize);
+
+    let canPlace = true;
+    for (let i=0;i<word.length;i++){
+      let r = row + dir[0]*i;
+      let c = col + dir[1]*i;
+      if(r<0||c<0||r>=gridSize||c>=gridSize||grid[r][c]!==""){
+        canPlace=false; break;
+      }
+    }
+
+    if(canPlace){
+      for (let i=0;i<word.length;i++){
+        let r = row + dir[0]*i;
+        let c = col + dir[1]*i;
+        grid[r][c] = word[i];
+      }
+      placed=true;
+    }
+  }
+}
+
+words.forEach(placeWord);
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+for(let i=0;i<gridSize;i++){
+  for(let j=0;j<gridSize;j++){
+    if(grid[i][j]==="") grid[i][j]=letters[Math.floor(Math.random()*letters.length)];
+  }
+}
+
+const gridContainer = document.getElementById('grid');
+let cells = [];
+
+for(let i=0;i<gridSize;i++){
+  for(let j=0;j<gridSize;j++){
+    const div = document.createElement('div');
+    div.classList.add('cell');
+    div.textContent = grid[i][j];
+    div.dataset.row=i; div.dataset.col=j;
+    gridContainer.appendChild(div);
+    cells.push(div);
+  }
+}
+
+let isDragging=false;
+let selectedCells=[];
+let current="";
+let found=[];
+
+function reset(){
+  current="";
+  selectedCells.forEach(c=>c.classList.remove('selected'));
+  selectedCells=[];
+}
+
+cells.forEach(cell=>{
+  cell.addEventListener('mousedown',()=>{
+    isDragging=true; reset();
+    addCell(cell);
+  });
+
+  cell.addEventListener('mouseover',()=>{
+    if(isDragging) addCell(cell);
+  });
+
+  cell.addEventListener('mouseup',()=>{
+    isDragging=false;
+    checkWord();
+  });
+});
+
+document.addEventListener('mouseup',()=> isDragging=false);
+
+function addCell(cell){
+  if(!selectedCells.includes(cell)){
+    cell.classList.add('selected');
+    selectedCells.push(cell);
+    current += cell.textContent;
+  }
+}
+
+function checkWord(){
+  words.forEach(word=>{
+    if(current===word && !found.includes(word)){
+      // tachar palabra en la lista
+      const item = document.querySelector(`[data-word="${word}"]`);
+      if(item) item.classList.add('done');
+      found.push(word);
+      selectedCells.forEach(c=>{
+        c.classList.remove('selected');
+        c.classList.add('found');
+      });
+      reset();
+
+      if(found.length===words.length){
+        showMessage();
+      }
+    }
+  });
+  reset();
+}
+
+// ✨ Mensaje con efecto máquina de escribir
+function showMessage(){
+  const msg = `💖 Feliz 26 NO cumpleaños ${nombre}, te amo mucho. Eres lo más lindo que me ha pasado, me haces feliz cada día y quiero estar contigo siempre. 💕`;
+  const container = document.getElementById('message');
+  container.style.display='block';
+
+  container.innerHTML = "";
+
+  const textSpan = document.createElement('span');
+  container.appendChild(textSpan);
+
+  for(let i=0;i<15;i++){
+    setTimeout(()=>{
+      const spark = document.createElement('div');
+      spark.classList.add('sparkle');
+      spark.style.left = Math.random()*100+'%';
+      spark.style.top = Math.random()*100+'%';
+      container.appendChild(spark);
+      setTimeout(()=>spark.remove(),1500);
+    }, i*100);
+  }
+
+  let i=0;
+  function type(){
+    if(i<msg.length){
+      textSpan.textContent += msg[i];
+      i++;
+      setTimeout(type,30);
+    }
+  }
+  type();
+}
+"Te amo mucho. Eres lo más lindo que me ha pasado mi amor bonito, me haces feliz cada día y quiero estar contigo siempre. 💕";
+  const container = document.getElementById('message');
+  container.style.display='block';
+  let i=0;
+  function type(){
+    if(i<msg.length){
+      container.innerHTML += msg[i];
+      i++;
+      setTimeout(type,30);
+    }
+  }
+  type();
+
+// Corazones
+function createHeart(){
+  const heart=document.createElement('div');
+  heart.classList.add('heart');
+  heart.style.left=Math.random()*100+'vw';
+  heart.style.animationDuration=(Math.random()*3+3)+'s';
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,300);
+</script>
+
+</body>
+</html>
