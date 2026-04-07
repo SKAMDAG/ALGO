@@ -175,7 +175,7 @@ algo que no cabe en ningún papel.
 
 <div class="heart-line">❤♡❤♡❤♡❤</div>
 <div class="buttons">
-<button onclick="showCat()">LOVIU</button>
+<button onclick="irAInicio()">LOVIU</button>
 </div>
 <div class="footer"></div>
 </div>
@@ -185,7 +185,9 @@ function showReminder() {
 document.getElementById("catCard").classList.remove("visible");
 document.getElementById("reminderCard").classList.add("visible");
 }
-
+function irAInicio() {
+    window.location.href = "index.html";
+}
 function showCat() {
 document.getElementById("reminderCard").classList.remove("visible");
 document.getElementById("catCard").classList.add("visible");
