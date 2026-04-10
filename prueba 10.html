@@ -2,34 +2,200 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Cumpleaños</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✨ Para Ti 💙</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 
 <style>
 body{
-  background:#fff3b0;
-  text-align:center;
-  font-family: Arial;
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+
+  background:
+    radial-gradient(circle at center, rgba(20,20,60,0.9), #050816),
+    url("tu-imagen.png") no-repeat center center;
+
+  background-size: cover, contain;
 }
 
-button{
-  margin-top:100px;
-  padding:15px;
-  font-size:18px;
+/* CONTENEDOR */
+#cielo{
+  position:relative;
+  width:100%;
+  height:100%;
+}
+
+/* ESTRELLAS INVISIBLES */
+.estrella{
+  position:absolute;
+  width:60px;
+  height:60px;
+  cursor:pointer;
+}
+
+/* EFECTO BRILLO */
+.estrella:hover{
+  box-shadow:0 0 25px white, 0 0 40px #8ab4ff;
+  border-radius:50%;
+}
+
+/* MENSAJE BONITO */
+.mensaje{
+  position:absolute;
+  background:rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  color:#ffffff;
+  padding:14px 18px;
+  border-radius:18px;
+  max-width:240px;
+  text-align:center;
+
+  font-family: 'Dancing Script', cursive;
+  font-size:20px;
+
+  border:1px solid rgba(255,255,255,0.2);
+  box-shadow:0 0 20px rgba(255,255,255,0.2);
+
+  animation:aparecer 0.4s ease, flotar 2s ease-in-out infinite;
+}
+
+/* CARTA ESPECIAL */
+.carta{
+  position:absolute;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  color:white;
+  padding:20px;
+  border-radius:20px;
+  max-width:300px;
+  text-align:center;
+
+  font-family: 'Dancing Script', cursive;
+  font-size:22px;
+
+  box-shadow:0 0 30px rgba(255,255,255,0.3);
+  animation:aparecer 0.5s ease;
+}
+
+/* ANIMACIONES */
+@keyframes aparecer{
+  from{opacity:0; transform:scale(0.8);}
+  to{opacity:1; transform:scale(1);}
+}
+
+@keyframes flotar{
+  0%{ transform:translateY(0);}
+  50%{ transform:translateY(-5px);}
+  100%{ transform:translateY(0);}
+}
+
+/* EFECTO EXPLOSIÓN */
+.particula{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:white;
+  border-radius:50%;
+  pointer-events:none;
+  animation:explosion 0.6s ease forwards;
+}
+
+@keyframes explosion{
+  to{
+    transform:translate(var(--x), var(--y));
+    opacity:0;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<button onclick="mostrar()">🎉 Ver sorpresa</button>
+<div id="cielo">
 
-<h1 id="msg" style="display:none;">
-  🎂 ¡Feliz Cumpleaños! 💖
-</h1>
+  <!-- ESTRELLAS -->
+  <div class="estrella" style="top:18%; left:30%;" onclick="clickEstrella(event)"></div>
+  <div class="estrella" style="top:20%; left:70%;" onclick="clickEstrella(event)"></div>
+  <div class="estrella" style="top:35%; left:55%;" onclick="clickEstrella(event)"></div>
+  <div class="estrella" style="top:55%; left:25%;" onclick="clickEstrella(event)"></div>
+  <div class="estrella" style="top:60%; left:75%;" onclick="clickEstrella(event)"></div>
+
+  <!-- ESTRELLA FINAL -->
+  <div class="estrella" style="top:75%; left:45%;" onclick="mostrarCarta(event)"></div>
+
+</div>
 
 <script>
-function mostrar(){
-  document.getElementById("msg").style.display="block";
+/* FRASES SIN REPETIR */
+let frases = [
+  "Eres mi lugar favorito 💙",
+  "Me haces muy feliz ✨",
+  "Siempre pienso en ti 🌙",
+  "Eres mi persona favorita 💫",
+  "Contigo todo es mejor 💕"
+];
+
+function clickEstrella(e){
+  if(frases.length === 0) return;
+
+  const index = Math.floor(Math.random()*frases.length);
+  const texto = frases.splice(index,1)[0];
+
+  mostrarMensaje(e, texto);
+  explosion(e.clientX, e.clientY);
+}
+
+/* MOSTRAR MENSAJE */
+function mostrarMensaje(e, texto){
+  const msg = document.createElement("div");
+  msg.className = "mensaje";
+  msg.innerText = texto;
+
+  msg.style.top = e.clientY + "px";
+  msg.style.left = e.clientX + "px";
+
+  document.body.appendChild(msg);
+  setTimeout(()=>msg.remove(), 3000);
+}
+
+/* EXPLOSIÓN */
+function explosion(x,y){
+  for(let i=0;i<12;i++){
+    const p = document.createElement("div");
+    p.className="particula";
+
+    p.style.left = x+"px";
+    p.style.top = y+"px";
+
+    p.style.setProperty('--x', (Math.random()*100-50)+'px');
+    p.style.setProperty('--y', (Math.random()*100-50)+'px');
+
+    document.body.appendChild(p);
+
+    setTimeout(()=>p.remove(),600);
+  }
+}
+
+/* CARTA FINAL 💌 */
+function mostrarCarta(e){
+  const carta = document.createElement("div");
+  carta.className = "carta";
+
+  carta.innerHTML = `
+    Feliz 10mo NO CUMPLEAÑOS...<br><br>
+    Gracias por llegar a mi vida 💖<br><br>
+    Eres la personita que hace que todo tenga sentido,
+    que convierte lo simple en algo especial... ✨<br><br>
+    Te amo muchísimo mi amor.💙
+  `;
+
+  carta.style.top = "50%";
+  carta.style.left = "50%";
+  carta.style.transform = "translate(-50%, -50%)";
+
+  document.body.appendChild(carta);
 }
 </script>
 
