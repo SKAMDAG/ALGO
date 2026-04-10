@@ -18,7 +18,7 @@ body{
   overflow:hidden;
 }
 
-/* 🔥 CONTENEDOR CON TAMAÑO REAL */
+/* CONTENEDOR */
 #wrapper{
   position:relative;
   width:90vw;
@@ -30,7 +30,7 @@ body{
   position:absolute;
   width:100%;
   height:100%;
-  object-fit:contain; /* mantiene proporción */
+  object-fit:contain;
 }
 
 /* CAPA */
@@ -45,14 +45,43 @@ body{
   position:absolute;
   font-size:22px;
   cursor:pointer;
-
+  user-select:none;
   animation:brillar 2s infinite ease-in-out, flotar 3s infinite ease-in-out;
 }
 
-.estrella::before{ content:"✨"; }
-.estrella:nth-child(2n)::before{ content:"⭐"; }
-.estrella:nth-child(3n)::before{ content:"💫"; }
+/* SOLO ESTRELLAS (no luna) */
+.estrella:not(.luna)::before{ content:"✨"; }
+.estrella:not(.luna):nth-child(2n)::before{ content:"⭐"; }
+.estrella:not(.luna):nth-child(3n)::before{ content:"💫"; }
 
+/* 🌙 LUNA */
+.luna{
+  font-size:30px;
+  animation:flotar 3s infinite ease-in-out, brilloLuna 2.5s infinite ease-in-out;
+}
+
+.luna::before{
+  content:"🌙";
+}
+
+@keyframes brilloLuna{
+  0%,100%{
+    opacity:0.8;
+    transform:scale(1);
+    text-shadow:0 0 8px #fff;
+  }
+  50%{
+    opacity:1;
+    transform:scale(1.4);
+    text-shadow:0 0 25px #8ab4ff, 0 0 40px white;
+  }
+}
+
+.luna:hover{
+  transform:scale(1.9);
+}
+
+/* ANIMACIONES */
 @keyframes brillar{
   0%,100%{opacity:0.6; transform:scale(1);}
   50%{opacity:1; transform:scale(1.4);}
@@ -101,15 +130,14 @@ body{
 
   <div id="cielo">
 
-    <!-- ⭐ YA NO SE AGRUPAN -->
     <div class="estrella" style="top:15%; left:25%;" onclick="clickEstrella(event)"></div>
     <div class="estrella" style="top:20%; left:70%;" onclick="clickEstrella(event)"></div>
     <div class="estrella" style="top:35%; left:50%;" onclick="clickEstrella(event)"></div>
     <div class="estrella" style="top:55%; left:20%;" onclick="clickEstrella(event)"></div>
     <div class="estrella" style="top:60%; left:75%;" onclick="clickEstrella(event)"></div>
 
-    <!-- 💌 FINAL -->
-    <div class="estrella" style="top:80%; left:50%;" onclick="mostrarCarta()"></div>
+    <!-- 🌙 LUNA FINAL -->
+    <div class="estrella luna" style="top:75%; left:52%;" onclick="mostrarCarta()"></div>
 
   </div>
 
@@ -117,11 +145,12 @@ body{
 
 <script>
 let frases = [
-  "Eres mi lugar favorito 💙",
-  "Me haces muy feliz ✨",
-  "Siempre pienso en ti 🌙",
-  "Eres mi persona favorita 💫",
-  "Contigo todo es mejor 💕"
+  "Eres mi persona favorita en el mundo. 💙",
+  "Me haces muy feliz. ✨",
+  "Siempre pienso en ti y a veces me quillo por eso.😂🌙",
+  "También eres mi sonrisa favorita.💫",
+  "Contigo todo es más bonitoooooooo. 💕",
+  "¿Cómo es que puedes ser TANNNNN lindo?"
 ];
 
 function clickEstrella(e){
@@ -146,10 +175,15 @@ function mostrarCarta(){
   carta.className="carta";
 
   carta.innerHTML=`
-    💖 Para ti 💖<br><br>
-    Eres lo mejor que me ha pasado ✨<br><br>
-    Te quiero muchísimo 💙<br><br>
-    <small>(toca aquí)</small>
+    FELIZ 10VO NO CUMPLEAÑOS MUÑECO.💖<br><br>
+    Eres de las cosas màs bonitas que <br>
+    me han pasado, te lo he dicho antes,<br>
+    espero siempre poder llamarte amor,<br>
+    que siempre cuentes conmigo y que seamos<br>
+    locos, raritos y todo lo que sea que seamos,<br>
+    pero que lo seamos juntos pa' forever.✨<br><br>
+    <br><br>
+    <small>Te AMOOOOOOOOO muchísimo. 💙</small>
   `;
 
   carta.onclick=()=> window.location.href="index.html";
