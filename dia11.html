@@ -55,7 +55,7 @@ button:hover{
 
 /* 💌 icono carta */
 #letterEmoji{
-  position:CENTER;
+  position:fixed;
   bottom:20px;
   right:20px;
   font-size:60px;
@@ -155,8 +155,12 @@ function correcto(){
 }
 
 /* abrir carta */
-document.getElementById("letterEmoji").onclick = ()=>{
-  document.getElementById("letter").style.display="flex";
+window.onload = function(){
+
+  document.getElementById("letterEmoji").onclick = ()=>{
+    document.getElementById("letter").style.display="flex";
+  };
+
 };
 
 /* ir a index */
