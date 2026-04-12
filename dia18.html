@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>18 NO cumpleaños.💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins', sans-serif;
+  overflow:hidden;
+  background:#ffffff;
+  color:#333;
+}
+
+/* escenas */
+.scene{
+  position:absolute;
+  width:100%;
+  height:100dvh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  opacity:0;
+  transition:opacity 1.5s ease;
+}
+
+.scene.active{
+  opacity:1;
+}
+
+/* texto */
+.text{
+  font-family:'Playfair Display', serif;
+  font-size:1.7rem;
+  max-width:500px;
+  margin-bottom:20px;
+  line-height:1.4;
+  font-size: clamp(1.2rem, 4vw, 1.7rem);
+}
+
+/* imágenes */
+.img{
+  width:85%;
+  max-width:320px;
+  height:auto;
+  object-fit:cover;
+  border-radius:20px;
+  animation:zoom 6s ease-in-out infinite;
+}
+
+@keyframes zoom{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+  100%{transform:scale(1);}
+}
+
+/* lluvia suave */
+.rain{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:linear-gradient(transparent, rgba(0,0,0,0.05));
+  animation:rain 0.5s linear infinite;
+}
+
+@keyframes rain{
+  from{background-position:0 -100px;}
+  to{background-position:0 100px;}
+}
+
+/* escena cálida */
+.warm{
+  background:linear-gradient(135deg,#fff1f2,#ffe4e6);
+}
+
+/* botón */
+button{
+  background:none;
+  border:none;
+  padding:0;
+  margin-top:10px;
+  font-size:2rem; /* tamaño de la estrella */
+  cursor:pointer;
+}
+
+/* carta final */
+.final{
+  display:none;
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#ffffff;
+  color:#333;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:30px;
+
+}
+
+.final.show{
+  display:flex;
+}
+
+.final p{
+  font-family:'Playfair Display', serif;
+  font-size:1.5rem;
+  line-height:1.5;
+}
+
+.decor{
+  width:25vw; /* se adapta al tamaño de pantalla */
+  max-width:200px;
+}
+
+/* posiciones */
+.d1{
+  top:10%;
+  left:5%;
+}
+
+.d2{
+  top:15%;
+  right:5%;
+}
+
+.d3{
+  bottom:15%;
+  left:10%;
+}
+
+.d4{
+  bottom:10%;
+  right:10%;
+}
+</style>
+</head>
+<script>
+const diaActual = 18;
+
+const fechaInicio = new Date("2026-03-01");
+const fechaDesbloqueo = new Date(fechaInicio);
+fechaDesbloqueo.setDate(fechaInicio.getDate() + (diaActual-1));
+
+const ahora = new Date();
+
+if(ahora < fechaDesbloqueo){
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.innerHTML = `
+      <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:Arial;text-align:center">
+        <div>
+          <h1>🔒 Aún no disponible</h1>
+          <p>Este día todavía está bloqueado</p>
+        </div>
+      </div>
+    `;
+  });
+}
+</script>
+<body>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mp3">
+</audio>
+
+<!-- ESCENAS -->
+<div class="scene active">
+  <div class="text">HOLA.</div>
+  <img src="PRIMEROO.png" class="img">
+</div>
+
+<div class="scene">
+  <div class="text">Esta es nuestra historia…</div>
+  <img src="descarga.jpg" class="img">
+</div>
+
+<div class="scene">
+  <div class="text">No sé en qué momento pasamos de esto…</div>
+  <img src="SEGUNDOO.jpg" class="img">
+</div>
+
+<div class="scene">
+  <div class="text">A esto…</div>
+  <img src="TERCEROO.jpg" class="img">
+</div>
+
+<div class="scene">
+  <div class="text">Solo sé que de repente, bueno no TAN de repente, todo cambió.</div>
+  <img src="descarga (1).jpg" class="img">
+</div>
+
+<div class="scene">
+  <div class="text">Y sin darme cuenta…</div>
+  <img src="QUINTO.jpg" class="img">
+</div>
+
+<div class="scene">
+  <div class="text">Te volviste todo.</div>
+  <img src="TERCERO.jpg" class="img">
+</div>
+
+<div class="scene">
+  <div class="text">Incluso en los días difíciles…</div>
+  <img src="CUARTO.jpg" class="img">
+</div>
+
+<div class="scene warm">
+  <div class="text">Yo siempre voy a elegirte a ti.</div>
+  <img src="SEXTO.png" class="img">
+</div>
+
+<div class="scene">
+  <div class="text">
+    Porque no eres solo parte de mi vida…<br><br>
+    eres mi lugar favorito 💖
+    <br><br>
+     <img src="Diseño sin título (4).png" class="img">
+    <button onclick="mostrarFinal()">⭐</button>
+  </div>
+</div>
+
+<div class="final" id="final">
+  <p>
+    Feliz 18 NO cumpleaños papi rico.<br><br>
+  Gracias por existir…
+  y por hacer mi mundo mucho más bonito.<br><br>
+    LOVIUUUUUUUUUUUUUUUUUUUUUUU.💕
+  </p>
+    <img src="1a.png" class="decor d1">
+<img src="2aa.png" class="decor d2">
+<img src="3aaa.png" class="decor d3">
+<img src="4aaaa.png" class="decor d4">
+</div>
+
+<script>
+
+let escenas = document.querySelectorAll(".scene");
+let i = 0;
+let intervalo;
+
+/* cambiar escenas */
+function cambiarEscena(){
+  escenas[i].classList.remove("active");
+  i++;
+
+  // 👇 DETENERSE EN LA ÚLTIMA ESCENA (la del botón)
+  if(i < escenas.length){
+    escenas[i].classList.add("active");
+
+    if(i === escenas.length - 1){
+      clearInterval(intervalo); // ⛔ se detiene aquí
+    }
+
+  }
+}
+
+intervalo = setInterval(cambiarEscena, 4000);
+
+/* música */
+document.body.addEventListener("click", () => {
+  document.getElementById("music").play();
+}, {once:true});
+
+/* mostrar carta final */
+function mostrarFinal(){
+  document.getElementById("final").classList.add("show");
+}
+
+/* redirigir desde la carta */
+let final = document.getElementById("final");
+
+final.addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+</script>
+
+
+</body>
+</html>

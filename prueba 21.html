@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrera 💖</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  font-family:sans-serif;
+}
+
+/* FONDO CON GIF */
+.bg{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:url("https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif") center/cover no-repeat;
+}
+
+/* interfaz */
+.ui{
+  position:absolute;
+  top:20px;
+  width:100%;
+  text-align:center;
+  color:white;
+  text-shadow:0 2px 5px black;
+}
+
+.bar{
+  width:70%;
+  height:8px;
+  background:rgba(255,255,255,0.3);
+  margin:10px auto;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.progress{
+  height:100%;
+  width:0%;
+  background:#fff;
+}
+
+/* carro */
+.car{
+  position:absolute;
+  bottom:40px;
+  left:30px;
+  width:130px;
+  transition: transform 0.1s;
+}
+
+/* meta */
+.finish{
+  position:absolute;
+  right:40px;
+  bottom:0;
+  height:100%;
+  width:10px;
+  background: repeating-linear-gradient(
+    white 0, white 10px,
+    black 10px, black 20px
+  );
+}
+
+/* carta */
+.letter{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(10px);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.box{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  max-width:350px;
+  animation:fade 1s ease;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(40px);}
+  to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="ui">
+  <h2>🏎️ Vamos juntos...</h2>
+  <div class="bar"><div id="progress" class="progress"></div></div>
+  <p>(mantén presionado para avanzar)</p>
+</div>
+
+<!-- CAMBIA SOLO ESTA IMAGEN SI QUIERES -->
+<img src="https://pngimg.com/uploads/sports_car/sports_car_PNG66.png" id="car" class="car">
+
+<div class="finish"></div>
+
+<div class="letter" id="letter">
+  <div class="box">
+    <h2>💌 Para ti</h2>
+    <p>
+      Llegamos hasta aquí…<br><br>
+      y quiero seguir avanzando contigo 💖<br><br>
+      sin importar la velocidad 🚗✨
+    </p>
+  </div>
+</div>
+
+<script>
+let pressing = false;
+let progress = 0;
+
+document.addEventListener("mousedown", ()=> pressing=true);
+document.addEventListener("mouseup", ()=> pressing=false);
+document.addEventListener("touchstart", ()=> pressing=true);
+document.addEventListener("touchend", ()=> pressing=false);
+
+function loop(){
+
+  if(pressing){
+    progress += 0.5;
+  } else {
+    progress -= 0.2;
+  }
+
+  progress = Math.max(0, Math.min(progress, 100));
+
+  document.getElementById("progress").style.width = progress + "%";
+
+  document.getElementById("car").style.transform =
+    "translateX(" + progress*3 + "px)";
+
+  if(progress >= 100){
+    document.getElementById("letter").style.display = "flex";
+    return;
+  }
+
+  requestAnimationFrame(loop);
+}
+
+loop();
+</script>
+
+</body>
+</html>
