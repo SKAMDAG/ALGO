@@ -1,10 +1,9 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Carta Secreta 4 by Myeya</title>
+<title>16 NO cumpleaños</title>
 
 <style>
 body {
@@ -13,8 +12,8 @@ margin: 0;
 padding: 0;
 overflow-x: hidden;
 
-/* Fondo animado */
-background: linear-gradient(-45deg, #ffdde1, #ee9ca7, #c2e9fb, #a1c4fd);
+/* 💙 FONDO NUEVO */
+background: linear-gradient(-45deg, #d4f1ff, #cdb4ff, #a0e7ff, #bdb2ff);
 background-size: 400% 400%;
 animation: gradientBG 10s ease infinite;
 }
@@ -70,7 +69,7 @@ color: #333;
 
 /* CARTA */
 .notepad {
-background: rgba(255, 255, 255, 0.2);
+background: rgba(255, 255, 255, 0.25);
 backdrop-filter: blur(15px);
 border-radius: 20px;
 padding: 25px;
@@ -80,6 +79,17 @@ color: #333;
 box-shadow: 0 8px 30px rgba(0,0,0,0.2);
 border: 1px solid rgba(255,255,255,0.3);
 animation: fadeIn 0.5s ease;
+}
+
+/* 🔥 IMAGEN ARREGLADA */
+.notepad img {
+width: 100%;
+max-width: 280px;
+height: auto;
+border-radius: 15px;
+display: block;
+margin: 15px auto;
+object-fit: contain;
 }
 
 @keyframes fadeIn {
@@ -95,7 +105,7 @@ margin-top: 15px;
 
 /* BOTONES */
 .btn {
-background: linear-gradient(45deg, #ff758c, #ff7eb3);
+background: linear-gradient(45deg, #6299d8, #3a5faf);
 border: none;
 padding: 10px 20px;
 font-size: 16px;
@@ -110,13 +120,6 @@ transform: scale(1.1);
 box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* IMÁGENES */
-.img-page img {
-width: 100%;
-max-width: 400px;
-border-radius: 15px;
-}
-
 /* CARRUSEL */
 .carousel {
 position: relative;
@@ -129,18 +132,19 @@ border-radius: 15px;
 
 .carousel-track {
 display: flex;
-transition: transform 0.6s ease-in-out;
+width: 100%;
+transition: transform 0.2s ease;
 }
 
 .carousel-track img {
 width: 100%;
+min-width: 100%;
+height: auto;           /* 🔥 mantiene proporción */
+max-height: 350px;      /* evita que se haga gigante */
+object-fit: contain;    /* 🔥 NO corta la imagen */
 flex-shrink: 0;
-border-radius: 15px;
-transition: transform 0.4s;
-}
-
-.carousel-track img:hover {
-transform: scale(1.05);
+display: block;
+background: rgba(0,0,0,0.1); /* opcional bonito */
 }
 
 .carousel-btn {
@@ -205,7 +209,7 @@ border-radius: 50%;
 </div>
 
 <div class="notepad" id="page2" style="display:none; text-align:center;">
-<img src="https://n9.cl/uw1f1q">
+<img src="ia5.jpeg">
 <p>Me haces sentir completo(a), amado(a) y capaz de todo...</p>
 
 <div class="btn-container">
@@ -215,14 +219,15 @@ border-radius: 50%;
 </div>
 
 <div class="notepad" id="page3" style="display:none;">
-<h4>📸 Nuestros recuerdos</h4>
+<h4>📸</h4>
 
 <div class="carousel">
 <div class="carousel-track" id="carouselTrack">
-<img src="https://n9.cl/o11vrd">
-<img src="https://n9.cl/bf87g">
-<img src="https://n9.cl/ntjycw">
-<img src="https://n9.cl/ce2j0">
+<img src="ai2.jpg">
+<img src="iaa.jpeg">
+<img src="ai4.jpg">
+<img src="astriii.jpeg">
+<img src="ai3.jpg">
 </div>
 
 <button class="carousel-btn prev" onclick="moveSlide(-1)">❮</button>
@@ -230,8 +235,8 @@ border-radius: 50%;
 </div>
 
 <div class="btn-container">
-<button class="btn" onclick="prevPage(2)">⬅ Anterior</button>
-<button class="btn" onclick="goBack()">⬅ Inicio</button>
+<button class="btn" onclick="prevPage(2)">Anterior</button>
+<button class="btn" onclick="irAIndex()">Byecito</button>
 </div>
 </div>
 
@@ -305,8 +310,22 @@ heart.innerHTML="💖";
 heart.style.position="fixed";
 heart.style.left=Math.random()*100+"vw";
 heart.style.top="100vh";
-heart.style.fontSize="20px";
+heart.style.fontSize=(Math.random()*15+15)+"px";
 heart.style.animation="floatUp 4s linear";
 document.body.appendChild(heart);
 
-setTimeout(()=>heart.remove
+setTimeout(()=>{
+  heart.remove();
+},4000);
+}
+
+setInterval(createHeart, 500);
+
+/* IR A INDEX */
+function irAIndex(){
+window.location.href="index.html";
+}
+</script>
+
+</body>
+</html>

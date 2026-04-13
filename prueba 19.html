@@ -2,270 +2,101 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Darla 🌻</title>
+<title>Mi Película Web</title>
 
 <style>
-*{box-sizing:border-box;}
-
-body{
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background:linear-gradient(135deg,#2b2b2b,#3b3b3b,#6b6b3a);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  overflow:hidden;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    background: black;
+    color: white;
 }
 
-/* fondo */
-.fondo{
-  position:fixed;
-  width:100%;
-  height:100%;
-  z-index:0;
+/* ESCENAS */
+.scene {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    transition: opacity 1s;
 }
 
-.girasol{
-  position:absolute;
-  opacity:0.25;
-  animation:caer linear infinite;
+.active {
+    display: flex;
 }
 
-@keyframes caer{
-  0%{transform:translateY(-100px) rotate(0deg);}
-  100%{transform:translateY(110vh) rotate(360deg);}
+/* BOTÓN */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background: pink;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
 }
 
-/* container */
-.container{
-  width:460px;
-  height:680px;
-  background:#1e1e1e;
-  border-radius:20px;
-  box-shadow:0 20px 50px rgba(0,0,0,0.6);
-  position:relative;
-  z-index:2;
-  overflow:hidden;
-  border:1px solid #333;
+/* ANIMACIÓN */
+.fade {
+    animation: fadeIn 2s;
 }
 
-/* slides */
-.slide{
-  position:absolute;
-  width:100%;
-  height:100%;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  padding:25px;
-  text-align:center;
-}
-
-.slide.active{
-  display:flex;
-}
-
-/* textos */
-h1{
-  color:#f1c40f;
-  font-size:38px;
-  letter-spacing:1px;
-}
-
-.slide p{
-  color:#ddd;
-  font-size:17px;
-  line-height:1.6;
-}
-
-/* imágenes */
-.slide img{
-  width:100%;
-  height:260px;
-  object-fit:cover;
-  border-radius:12px;
-  margin-top:15px;
-  filter:brightness(0.9);
-}
-
-/* botones */
-.botones{
-  position:absolute;
-  bottom:15px;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-}
-
-.botones button{
-  background:#2a2a2a;
-  color:#f1c40f;
-  border:1px solid #f1c40f;
-  padding:10px 18px;
-  border-radius:10px;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.botones button:hover{
-  background:#f1c40f;
-  color:#000;
-}
-
-/* carta */
-.hoja-carta{
-  width:90%;
-  height:90%;
-  background:#252525;
-  border-radius:12px;
-  padding:25px;
-  overflow-y:auto;
-  border:1px solid #444;
-  text-align:justify;
-}
-
-.fecha{
-  text-align:right;
-  color:#aaa;
-  margin-bottom:15px;
-}
-
-.destinatario{
-  margin-bottom:10px;
-}
-
-.hoja-carta p{
-  margin-bottom:15px;
-  color:#eee;
-  line-height:1.7;
-}
-
-.despedida{
-  margin-top:20px;
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="fondo" id="fondo"></div>
-
-<div class="container">
-
-<div class="slide active">
-  <h1>Para Darla 🌻</h1>
-  <p>Un pequeño detalle… para alguien especial.</p>
-  <img src="gato13.jpg">
-  <div class="botones">
-    <button onclick="nextSlide()">Siguiente ➜</button>
-  </div>
+<!-- ESCENA 1 -->
+<div class="scene active fade" id="scene1">
+    <h1>💖 Una Historia Especial 💖</h1>
+    <p>Todo comenzó con un simple mensaje...</p>
+    <button onclick="nextScene()">Continuar</button>
 </div>
 
-<div class="slide">
-  <p>A veces no hace falta mucho…<br>solo coincidir en el momento correcto.</p>
-  <img src="gato132.jpg">
-  <div class="botones">
-    <button onclick="prevSlide()">←</button>
-    <button onclick="nextSlide()">→</button>
-  </div>
+<!-- ESCENA 2 -->
+<div class="scene" id="scene2">
+    <h1>🌙 Poco a poco...</h1>
+    <p>Las conversaciones se volvieron importantes...</p>
+    <button onclick="nextScene()">Continuar</button>
 </div>
 
-<div class="slide">
-  <p>Hay personas que se vuelven recuerdo bonito<br>sin darse cuenta.</p>
-  <img src="https://i.pinimg.com/736x/15/f2/a0/15f2a03b543087186214be7d716c3620.jpg">
-  <div class="botones">
-    <button onclick="prevSlide()">←</button>
-    <button onclick="nextSlide()">→</button>
-  </div>
+<!-- ESCENA 3 -->
+<div class="scene" id="scene3">
+    <h1>❤️ Y sin darnos cuenta...</h1>
+    <p>Se convirtió en algo especial...</p>
+    <button onclick="nextScene()">Final</button>
 </div>
 
-<div class="slide">
-  <p>Todavía queda algo más para ti…</p>
-  <img src="https://i.pinimg.com/736x/43/e7/98/43e798ebc28fa84a245c0997434303d0.jpg">
-  <div class="botones">
-    <button onclick="prevSlide()">←</button>
-    <button onclick="goTo(4)">Abrir carta 💌</button>
-  </div>
-</div>
-
-<div class="slide">
-  <div class="hoja-carta">
-    <div class="fecha">21 de septiembre 🌻</div>
-    <p class="destinatario"><strong>Darla,</strong></p>
-
-    <p>
-      A veces lo más importante no son los grandes momentos,
-      sino esos pequeños instantes que se quedan sin hacer ruido.
-    </p>
-
-    <p>
-      Las conversaciones largas, las risas inesperadas,
-      o simplemente compartir tiempo… sin necesidad de nada más.
-    </p>
-
-    <p>
-      Porque al final, no se trata de lo que pasa,
-      sino de con quién pasa.
-    </p>
-
-    <p>
-      Y hay cosas que, sin darnos cuenta,
-      se vuelven especiales… y se quedan.
-    </p>
-
-    <p class="despedida">Con cariño,</p>
-    <p><strong>Darlin 🖤</strong></p>
-  </div>
-
-  <div class="botones">
-    <button onclick="goTo(0)">Inicio</button>
-    <button onclick="prevSlide()">←</button>
-  </div>
-</div>
-
+<!-- ESCENA FINAL -->
+<div class="scene" id="scene4">
+    <h1>💌 Te amo 💌</h1>
+    <p>Gracias por ser parte de mi historia</p>
+    <button onclick="restart()">Reiniciar</button>
 </div>
 
 <script>
-let current = 0;
-const slides = document.querySelectorAll(".slide");
+let current = 1;
 
-function showSlide(index){
-  slides[current].classList.remove("active");
-  current = index;
-  slides[current].classList.add("active");
+function nextScene() {
+    document.getElementById("scene" + current).classList.remove("active");
+    current++;
+    document.getElementById("scene" + current).classList.add("active");
 }
 
-function nextSlide(){
-  let next = current + 1;
-  if(next >= slides.length) next = 0;
-  showSlide(next);
-}
-
-function prevSlide(){
-  let prev = current - 1;
-  if(prev < 0) prev = slides.length - 1;
-  showSlide(prev);
-}
-
-function goTo(index){
-  showSlide(index);
-}
-
-/* girasoles suaves */
-const fondo = document.getElementById("fondo");
-
-for(let i=0;i<12;i++){
-  let flor = document.createElement("img");
-  flor.src="https://www.pngmart.com/files/4/Sunflower-PNG-HD.png";
-  flor.className="girasol";
-  flor.style.left=Math.random()*100+"vw";
-  flor.style.animationDuration=(6+Math.random()*6)+"s";
-  flor.style.width=(30+Math.random()*30)+"px";
-  fondo.appendChild(flor);
+function restart() {
+    document.getElementById("scene" + current).classList.remove("active");
+    current = 1;
+    document.getElementById("scene1").classList.add("active");
 }
 </script>
 
