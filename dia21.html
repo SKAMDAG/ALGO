@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para ti 💖</title>
+<title>21 NO cumpleaños.💖</title>
 
 <style>
 body{
@@ -127,24 +127,26 @@ body{
 <div id="message" class="message"> Ñaño, vas muy bien...Siga así señorito. ✨</div>
 
 <!-- CARTA -->
-<div id="letter" class="letter">
+<div id="letter" class="letter" onclick="goIndex()">
   <div class="box">
     <h2>Feliz 20 NO Cumpleaños, y...
-        Feliz 7vo mes, mi amor bonito. </h2>
-   <p class="carta-texto">
-  Reuniste todos los emojis, uno a uno…<br>
-  y así quiero construir todo contigo,<br>
-  paso a paso, uno a uno, quiero que siempre
-  avancemos juntos, agarraditos de la mano, que
-  nunca nos soltemos, que seamos siempre el apoyo y la 
-  fuerza del otro, que construyamos una vida juntos
-  avanzando de a poquito, superando los tropezones
-  y logrando todo aquello que nos llene el corazón.<br><br>
+        Feliz 7vo mes, mi amor bonito.</h2>
 
-  <span class="final">Te amo infinito mi amor bonito.✨</span>
-</p>
+    <p class="carta-texto">
+      Reuniste todos los emojis, uno a uno…<br>
+      y así quiero construir todo contigo,<br>
+      paso a paso, uno a uno, quiero que siempre
+      avancemos juntos, agarraditos de la mano, que
+      nunca nos soltemos, que seamos siempre el apoyo y la 
+      fuerza del otro, que construyamos una vida juntos
+      avanzando de a poquito, superando los tropezones
+      y logrando todo aquello que nos llene el corazón.<br><br>
+
+      <span class="final">Te amo infinito mi amor bonito.✨</span>
+    </p>
   </div>
 </div>
+
 
 <!-- SONIDO -->
 <audio id="popSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
@@ -228,6 +230,10 @@ if(count === 18){
 
 /* loop */
 setInterval(spawnEmoji, 800);
+
+function goIndex(){
+  window.location.href = "index.html";
+}
 </script>
 
 </body>

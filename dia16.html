@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>16 NO cumpleaños 💙</title>
+
+<style>
+body {
+font-family: 'Arial', sans-serif;
+margin: 0;
+overflow-x: hidden;
+background: linear-gradient(-45deg, #d4f1ff, #cdb4ff, #a0e7ff, #bdb2ff);
+background-size: 400% 400%;
+animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
+
+/* SCREENS */
+.screen{
+display:none;
+justify-content:center;
+align-items:center;
+height:100vh;
+flex-direction:column;
+}
+.active{display:flex;}
+
+/* ================= PORTADA FLIP ================= */
+.card-container{
+perspective:1000px;
+}
+
+.card{
+width:300px;
+height:400px;
+position:relative;
+transform-style:preserve-3d;
+transition: transform 1s;
+cursor:pointer;
+}
+
+.card.flipped{
+transform: rotateY(180deg);
+}
+
+.card-face{
+position:absolute;
+width:100%;
+height:100%;
+backface-visibility:hidden;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:20px;
+}
+
+.card-front img{
+width:100%;
+height:100%;
+object-fit: cover;
+border-radius:20px;
+}
+
+.card-back{
+background:white;
+transform: rotateY(180deg);
+flex-direction:column;
+}
+
+.btn{
+margin-top:15px;
+padding:10px 20px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+background:#dfe4ee;
+color:rgba(11, 50, 65, 0.493);
+}
+
+/* ================= CARRUSEL ================= */
+.carousel {
+position: relative;
+width: 90%;
+max-width: 500px;
+overflow: hidden;
+border-radius: 20px;
+}
+
+.carousel-track {
+display: flex;
+transition: transform 0.3s ease;
+}
+
+.flip-card {
+width: 100%;
+min-width: 100%;
+height: 350px;
+perspective: 1000px;
+cursor: pointer;
+}
+
+.flip-inner {
+width: 100%;
+height: 100%;
+transition: transform 0.8s;
+transform-style: preserve-3d;
+position: relative;
+}
+
+.flip-card.flipped .flip-inner {
+transform: rotateY(180deg);
+}
+
+.flip-front, .flip-back {
+position: absolute;
+width: 100%;
+height: 100%;
+backface-visibility: hidden;
+border-radius: 20px;
+overflow: hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:justify;
+padding:15px;
+box-sizing:border-box;
+}
+
+.flip-front img {
+max-width: 100%;
+max-height: 100%;
+width: auto;
+height: auto;
+object-fit: contain;
+border-radius: 20px;
+}
+
+.flip-back {
+transform: rotateY(180deg);
+}
+
+.carousel-btn {
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,0.5);
+color:white;
+border:none;
+padding:10px;
+border-radius:50%;
+}
+
+.prev{left:10px;}
+.next{right:10px;}
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+
+.titulo-cute{
+font-family: 'Quicksand', sans-serif;
+font-weight: 700;
+font-size: 26px;
+color: #3a5faf;
+text-align: center;
+letter-spacing: 2px;
+text-shadow: 2px 2px 10px rgba(0,0,0,0.15);
+}
+
+</style>
+</head>
+<script>
+const diaActual = 16;
+
+const fechaInicio = new Date("2026-03-01");
+const fechaDesbloqueo = new Date(fechaInicio);
+fechaDesbloqueo.setDate(fechaInicio.getDate() + (diaActual-1));
+
+const ahora = new Date();
+
+if(ahora < fechaDesbloqueo){
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.innerHTML = `
+      <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:Arial;text-align:center">
+        <div>
+          <h1>🔒 Aún no disponible</h1>
+          <p>Este día todavía está bloqueado</p>
+        </div>
+      </div>
+    `;
+  });
+}
+</script>
+<body>
+
+<!-- ================= PORTADA ================= -->
+<div id="introScreen" class="screen active">
+
+<div class="card-container">
+<div class="card" id="card" onclick="flipCard()">
+
+<!-- FRONT -->
+<div class="card-face card-front">
+<img src="ia5.jpeg">
+</div>
+
+<!-- BACK -->
+<div class="card-face card-back">
+
+<P>El dia de hoy se titula...</P>
+
+<h2 class="titulo-cute">UN DÍA DEL CALENDARIO.</h2>
+
+<button class="btn" onclick="goCarousel(event)">
+🗓️💫
+</button>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<!-- ================= CARRUSEL ================= -->
+<div id="carouselScreen" class="screen">
+
+<div class="carousel">
+<div class="carousel-track" id="carouselTrack">
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="ai2.jpg"></div>
+<div class="flip-back">
+<p>
+Un día me desperté emocionada <br>
+porque según yoiba a tener una <br>
+cita contigo, pues resulta que sí,<br>
+que iba a tener una cita contigo. <br>
+Recuerdo que ese día llegué a <br>
+mi casita como si me hubiesen <br>
+regalado un libro, estaba muy feliz,<br>
+pero al mismo tiempo no podía creerlo.</p>
+</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="iaa.jpeg"></div>
+<div class="flip-back">
+<p>
+Al día siguiente me desperté flotando <BR>
+en una nube, como si estuviera en un <BR>
+sueño pero despierta, y bueno desde ese<BR> 
+día hasta hoy, me he sentido la persona <BR>
+más afortunada del mundo entero, y es que ...<BR>
+ </p>
+</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="ai4.jpg"></div>
+<div class="flip-back">
+  <P>
+¿Cómo podría mirarte y no sentir que lo tengo todo,<BR>
+que no soy la favorita de Dios y que no tengo al<BR>
+hombre perfecto diciéndome novia?<BR>
+Es imposible mirarte y no dar gracias por tenerte.<BR>
+  </P>
+</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="astriii.jpeg"></div>
+<div class="flip-back">
+<P>
+A veces es muy aterrador sentir tanto, pero<bR>
+creo que si tú no eres merecedor de mi amor,<br>
+nadie nunca lo será.<br>
+</p>
+</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="goIndex()">
+<div class="flip-inner">
+<div class="flip-front"><img src="ai3.jpg"></div>
+<div class="flip-back">👉 Ir a index</div>
+</div>
+</div>
+
+</div>
+
+<button class="carousel-btn prev" onclick="move(-1)">❮</button>
+<button class="carousel-btn next" onclick="move(1)">❯</button>
+
+</div>
+
+<script>
+
+/* flip portada */
+function flipCard(){
+document.getElementById("card").classList.toggle("flipped");
+}
+
+/* ir carrusel */
+function goCarousel(e){
+e.stopPropagation();
+document.getElementById("introScreen").classList.remove("active");
+document.getElementById("carouselScreen").classList.add("active");
+}
+
+/* flip carrusel */
+function flip(el){
+el.classList.toggle("flipped");
+}
+
+/* slider */
+let index = 0;
+
+function move(dir){
+const track = document.getElementById("carouselTrack");
+const total = track.children.length;
+
+index += dir;
+if(index < 0) index = total-1;
+if(index >= total) index = 0;
+
+track.style.transform = `translateX(-${index*100}%)`;
+}
+
+/* index */
+function goIndex(){
+window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>

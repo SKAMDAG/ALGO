@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💙</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,system-ui}
+
+/* PANTALLAS */
+.screen{
+  position:absolute;
+  width:100%;
+  height:100vh;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+.active{display:flex}
+
+/* 🔒 LOCKSCREEN */
+#lock{
+  background:linear-gradient(180deg,#0f2027,#203a43,#2c5364);
+  color:white;
+}
+
+.timeBig{
+  font-size:75px;
+  margin-top:100px;
+  font-weight:200;
+}
+
+/* NOTIFICACION */
+.notif{
+  margin-top:40px;
+  width:85%;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(15px);
+  border-radius:18px;
+  padding:12px;
+  cursor:pointer;
+  animation:slide 0.5s ease;
+}
+.notif-top{font-size:12px;opacity:0.7}
+.notif-name{font-weight:bold}
+.notif-msg{font-size:13px;opacity:0.9}
+
+@keyframes slide{
+  from{transform:translateY(-20px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+
+.tap{
+  position:absolute;
+  bottom:100px;
+  opacity:0.6;
+  font-size:14px;
+}
+
+/* 🔢 PIN */
+#pin{background:black;color:white}
+
+.dots{margin:20px}
+.dot{
+  width:14px;height:14px;
+  border-radius:50%;
+  border:1px solid #aaa;
+  display:inline-block;
+  margin:6px;
+}
+.filled{background:white}
+
+.keypad{
+  display:grid;
+  grid-template-columns:repeat(3,80px);
+  gap:18px;
+}
+.key{
+  width:80px;height:80px;
+  border-radius:50%;
+  background:#1c1c1e;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:24px;
+}
+
+/* 📱 PHONE */
+#phone{
+  width:340px;
+  height:620px;
+  background:#efeae2;
+  border-radius:25px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* HEADER */
+#header{
+  background:#075e54;
+  color:white;
+  padding:10px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+#avatar{
+  width:35px;height:35px;
+  border-radius:50%;
+  background:url('iaa.jpeg') center/cover;
+  cursor:pointer;
+}
+#name{font-weight:bold}
+#status{font-size:11px;opacity:0.8}
+
+/* CHAT */
+#chat{
+  flex:1;
+  padding:10px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  background:url('ai3.jpg') center/cover;
+}
+
+/* MENSAJES */
+.msg{
+  max-width:75%;
+  padding:8px 10px;
+  margin:6px 0;
+  border-radius:10px;
+  font-size:14px;
+}
+.me{background:#dcf8c6;align-self:flex-end}
+.other{background:white;align-self:flex-start}
+
+.time{
+  font-size:10px;
+  text-align:right;
+  color:#666;
+}
+
+.check{
+  color:#34b7f1; /* AZUL */
+  margin-left:4px;
+}
+.keypad div:empty{
+  background:transparent;
+  box-shadow:none;
+}
+/* INFO */
+#contact{
+  background:#111;
+  color:white;
+  text-align:center;
+}
+#contact img{
+  width:120px;
+  border-radius:50%;
+  margin-bottom:20px;
+}
+#inputArea{
+  display:flex;
+  padding:8px;
+  background:#f0f0f0;
+}
+
+#inputMsg{
+  flex:1;
+  padding:10px;
+  border-radius:20px;
+  border:none;
+  outline:none;
+}
+
+#inputArea button{
+  margin-left:8px;
+  border:none;
+  background:#075e54;
+  color:white;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔒 LOCK -->
+<div id="lock" class="screen active">
+  <div class="timeBig" id="time"></div>
+
+  <div class="notif" onclick="openNotif()">
+    <div class="notif-top">💬 WhatsApp</div>
+    <div class="notif-name">🎨🩵🫧</div>
+    <div class="notif-msg"></div>
+  </div>
+
+  <div class="tap" onclick="show('pin')">Desliza o toca</div>
+</div>
+
+<!-- 🔢 PIN -->
+<div id="pin" class="screen">
+  <h2>Enter Passcode</h2>
+  <div class="dots" id="dots"></div>
+
+  <div class="keypad">
+    <div class="key" onclick="press(1)">1</div>
+    <div class="key" onclick="press(2)">2</div>
+    <div class="key" onclick="press(3)">3</div>
+    <div class="key" onclick="press(4)">4</div>
+    <div class="key" onclick="press(5)">5</div>
+    <div class="key" onclick="press(6)">6</div>
+    <div class="key" onclick="press(7)">7</div>
+    <div class="key" onclick="press(8)">8</div>
+    <div class="key" onclick="press(9)">9</div>
+     <div></div>
+  <div class="key" onclick="press(0)">0</div>
+  <div></div>
+  </div>
+</div>
+
+<!-- 💬 APP -->
+<div id="app" class="screen">
+  <div id="phone">
+
+    <div id="header">
+      <div id="avatar"></div>
+      <div>
+        <div id="name">🎨🩵🫧</div>
+        <div id="status">en línea</div>
+      </div>
+    </div>
+
+    <div id="chat"></div>
+<div id="inputArea">
+  <input id="inputMsg" placeholder="Escribe un mensaje...">
+  <button onclick="sendMsg()">➤</button>
+</div>
+  </div>
+</div>
+
+<!-- 👤 INFO -->
+<div id="contact" class="screen" onclick="goIndex()">
+  <img src="iaa.jpeg" style="cursor:pointer;">
+  <h2>🎨🩵🫧</h2>
+  <p>Eres lo más bonito que le puede pasar a alguien. ❤️</p>
+</div>
+<script>
+
+// hora
+setInterval(()=>{
+  let d=new Date();
+  time.innerText=d.getHours()+":"+String(d.getMinutes()).padStart(2,'0');
+},1000);
+
+// pantallas
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+// abrir desde notificacion
+function openNotif(){
+  show("pin");
+}
+
+// PIN
+let code="";
+let correct="301820";
+
+function press(n){
+  if(code.length<6){
+    code+=n;
+    draw();
+  }
+  if(code.length==6){
+    if(code===correct){
+      show("app");
+    }else{
+      code="";
+      draw();
+    }
+  }
+}
+
+function draw(){
+  dots.innerHTML="";
+  for(let i=0;i<6;i++){
+    let d=document.createElement("div");
+    d.className="dot"+(i<code.length?" filled":"");
+    dots.appendChild(d);
+  }
+}
+
+// CHAT
+const chat = document.getElementById('chat');
+const status = document.getElementById('status');
+
+const conversation = [
+  {text:"Hola mi princesa hermosa.💕", type:"other"},
+  {text:"Hiiiiiii baby.", type:"me"},
+  {text:"Sabes algo???", type:"other"},
+  {text:"¿Qué pasò?", type:"me"},
+  {text:"Que me haces muy feliz.", type:"other"},
+  {text:"Y tú a mí, muchachito lindo. 💖", type:"me"},
+  {text:"No dejo de pensar en ti.", type:"other"},
+  {text:"Creo yo tampoco...", type:"me"},
+   {text:"Ummm, lo voy a pensar.", type:"me"},
+    {text:"Bueno, si, yo tampoco deja de pensar en ti.", type:"me"},
+  {text:"Te amo mucho mi reina bella.💕", type:"other"},
+  {text:"Yo tambièn te amo mucho mi amor.🩵", type:"me"}
+];
+
+let i = 0;
+
+function getTime(){
+  const d = new Date();
+  return d.getHours()+":"+String(d.getMinutes()).padStart(2,'0');
+}
+
+function addMessage(data){
+  const m = document.createElement('div');
+  m.classList.add('msg', data.type);
+
+  const text = document.createElement('div');
+  text.textContent = data.text;
+
+  const timeDiv = document.createElement('div');
+  timeDiv.classList.add('time');
+
+  // CHECKS SOLO PARA "me"
+  if(data.type === "me"){
+    const checks = document.createElement("span");
+    checks.innerHTML = "✔";
+    checks.style.marginLeft = "4px";
+
+    timeDiv.innerHTML = getTime();
+    timeDiv.appendChild(checks);
+
+    // animación
+    setTimeout(()=>{
+      checks.innerHTML = "✔✔";
+      checks.style.color = "gray";
+    },800);
+
+    setTimeout(()=>{
+      checks.style.color = "#34b7f1";
+    },1600);
+
+  }else{
+    timeDiv.innerHTML = getTime();
+  }
+
+  m.appendChild(text);
+  m.appendChild(timeDiv);
+
+  // ❤️ reaccion con doble click
+  m.ondblclick = ()=>{
+    if(!m.querySelector(".react")){
+      const r = document.createElement("div");
+      r.innerText = "❤️";
+      r.style.fontSize="14px";
+      m.appendChild(r);
+    }
+  };
+
+  chat.appendChild(m);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function nextMessage(){
+  if(i >= conversation.length) return;
+
+  const data = conversation[i];
+
+  if(data.type === "other"){
+    status.textContent = "escribiendo...";
+
+    setTimeout(()=>{
+      status.textContent = "en línea";
+      addMessage(data);
+      i++;
+      setTimeout(nextMessage, 1200);
+    },1500);
+
+  }else{
+    addMessage(data);
+    i++;
+    setTimeout(nextMessage, 1200);
+  }
+}
+
+// INICIAR
+nextMessage();
+
+// PROFILE → INDEX
+document.getElementById("avatar").onclick=()=>{
+  show("contact");
+};
+
+function goIndex(){
+  window.location.href="index.html";
+}
+</Script>
+</body>
+</html>
