@@ -1,271 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
-<title>💙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Para ti</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
 body{
   margin:0;
-  font-family:'Segoe UI', sans-serif;
-  background: linear-gradient(180deg,#cfe9ff,#eaf6ff);
-  display:flex;
-  justify-content:center;
-}
-
-.app-container{
-  width:100%;
-  max-width:420px;
-  min-height:100vh;
-  padding:20px 15px;
-  position:relative;
-}
-
-.stars{
-  position:fixed;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-}
-
-.star{
-  position:absolute;
-  top:-20px;
-  animation:fall linear infinite;
-}
-
-@keyframes fall{
-  to{ transform:translateY(110vh) rotate(360deg); }
-}
-
-@keyframes blink{
-  50%{opacity:0.3;}
-}
-
-h2{
-  text-align:center;
-  color:#1e3a8a;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns: repeat(3,1fr);
-  gap:15px;
-}
-
-.card{
-  background: rgba(184,215,245,0.5);
-  backdrop-filter: blur(10px);
-  border-radius:18px;
-  padding:18px 5px;
-  text-align:center;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.card:active{transform:scale(0.95);}
-
-.active{
-  background:#9dc4f7;
-  color:white;
-}
-
-.locked{opacity:0.5;}
-
-.icon{font-size:22px;}
-.day{font-size:13px;font-weight:bold;}
-.timer{font-size:10px;}
-
-/* OVERLAY */
-.overlay{
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.3);
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  z-index:999;
+  background: linear-gradient(135deg, #ffd1dc, #c1d3ff);
+  font-family:'Poppins', sans-serif;
+  overflow:hidden;
 }
 
-.mensaje{
-  background: rgba(184,215,245,0.95);
-  backdrop-filter: blur(10px);
-  padding:20px 25px;
-  border-radius:18px;
+/* tarjeta */
+.card{
   text-align:center;
-  color:#1e3a8a;
-  max-width:85%;
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 
-@media(min-width:900px){
-  .app-container{max-width:900px;}
-  .grid{grid-template-columns: repeat(5,1fr);}
+/* FOTO */
+.foto{
+  width:280px;
+  height:280px;
+  object-fit:cover;
+  border-radius:25px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.3);
+  cursor:pointer;
+  transition:0.4s;
+}
+
+/* animación al activar */
+.foto.active{
+  transform:scale(1.05);
+  box-shadow:0 0 40px rgba(255,105,135,0.8);
+}
+
+/* texto */
+.texto{
+  margin-top:15px;
+  font-size:15px;
+  color:#333;
+  opacity:0;
+  transform:translateY(10px);
+  transition:0.6s;
+}
+
+.texto.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* botón oculto (opcional) */
+.info{
+  margin-top:10px;
+  font-size:12px;
+  opacity:0.5;
 }
 </style>
 </head>
 
 <body>
 
-<div class="stars" id="stars"></div>
+<div class="card">
 
-<div class="app-container">
-<h2>💙 Canciones</h2>
-<div class="grid" id="grid"></div>
+  <!-- FOTO -->
+  <img src="cassete.jpg" class="foto" id="foto">
+
+  <div class="texto" id="texto">
+    💖 Esta foto guarda un recuerdo contigo<br>
+    🎵 cada vez que la tocas, suena lo que siento por ti
+  </div>
+
+  <div class="info">toca la imagen 💫</div>
+
 </div>
 
+<!-- AUDIO -->
+<audio id="audio">
+  <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
 <script>
+const foto = document.getElementById("foto");
+const audio = document.getElementById("audio");
+const texto = document.getElementById("texto");
 
-/* 🌟 partículas */
-const starsContainer = document.getElementById("stars");
-const elementos=["💙","✨","⭐"];
+foto.addEventListener("click", () => {
 
-for(let i=0;i<40;i++){
-  const s=document.createElement("div");
-  s.className="star";
-  s.innerText=elementos[Math.floor(Math.random()*3)];
-  s.style.left=Math.random()*100+"%";
-  s.style.animationDuration=(4+Math.random()*6)+"s";
-  starsContainer.appendChild(s);
-}
+  // reproducir música
+  audio.play();
 
-/* 💖 30 DÍAS MANUALES */
-const mensajes = {
-  1:{titulo:"💙 Canción de día 1",texto:"Canción número 23",cancion:"Those Eyes.🩵",link:"https://open.spotify.com/intl-es/track/2psRActEWsTlYYd7EDoyVR?si=b9d00fec84bd4e29"},
-  2:{titulo:"💙 Canción de día 2",texto:"Canción número 26",cancion:"Salto de fe.🩵",link:"https://open.spotify.com/intl-es/track/2dZXHNzCyz77YzU8TaEN4B?si=f9a8faff655245da"},
-  3:{titulo:"💙 Canción de día 3",texto:"Canción número 24",cancion:"Para siempre.🩵",link:"https://open.spotify.com/intl-es/track/3w6HBymB6v99gmhz4aiX1g?si=280d2a09518c441c"},
-  4:{titulo:"💙 Canción de día 4",texto:"Canción número 19",cancion:"Mi persona favorita.🩵",link:"https://open.spotify.com/intl-es/track/1O4dGIPUXUanseRdv4fNzw?si=b9270f7588154159"},
-  5:{titulo:"💙 Canción de día 5",texto:"Canción número 6",cancion:"Amor del bueno.🩵",link:"https://open.spotify.com/intl-es/track/2G74yhtIMW8tJY5I83dS4Z?si=13ed264de2a24628"},
-  6:{titulo:"💙 Canción de día 6",texto:"Canción número 20",cancion:"Morfina.🩵",link:"https://open.spotify.com/intl-es/track/7lYKq59aOgRnRlrjuTIvJv?si=01ac102156db481e"},
-  7:{titulo:"💙 Canción de día 7",texto:"Canción número 15",cancion:"Korazong.🩵",link:"https://open.spotify.com/intl-es/track/43J20QsNeYhG23RcLHIGIn?si=df84a97d73c549fe"},
-  8:{titulo:"💙 Canción de día 8",texto:"Canción número 8",cancion:"Bendita tu luz.🩵",link:"https://open.spotify.com/intl-es/track/0qkftSyehmgEES0ymuYiTS?si=4b67a3b0a9f74a45"},
-  9:{titulo:"💙 Canción de día 9",texto:"Canción número 9",cancion:"✨🩵",link:"https://open.spotify.com/intl-es/album/50uChhk7AKkzDKytDixjYW?si=e98da2beca094008"},
-  10:{titulo:"💙 Canción de día 10",texto:"Canción número 7",cancion:"Aprender a quererte.🩵",link:"https://open.spotify.com/intl-es/track/47NKHRXdFtaNck3j2HIO9q?si=874f709061a04e2c"},
+  // animación foto
+  foto.classList.add("active");
 
-11:{titulo:"💙 Canción de día 11",texto:"Canción número 22",cancion:"DIE FOR YOU.🩵",link:"https://open.spotify.com/intl-es/track/2Ch7LmS7r2Gy2kc64wv3Bz?si=da8dc50d59804c07"},
-12:{titulo:"💙 Canción de día 12",texto:"Canción número 11",cancion:"Cosita lindaaa.🩵",link:"https://open.spotify.com/intl-es/track/1fDjHyaZnNCPo9QsuFdQVO?si=8b6befb5828243f8"},
-13:{titulo:"💙 Canción de día 13",texto:"Canción número 25",cancion:"I wanna be yours",link:"https://open.spotify.com/intl-es/track/5XeFesFbtLpXzIVDNQP22n?si=a07bd7ad52b84eef"},
-14:{titulo:"💙 Canción de día 14",texto:"Canción número 18",cancion:"MI BENDICIÒN.🩵",link:"https://open.spotify.com/intl-es/track/5fF0fb0VFihGDHFshDLi2Z?si=f7d2b8c238714de6"},
-15:{titulo:"💙 Canción de día 15",texto:"Canción número 13",cancion:"Entra en mi vida.🩵",link:"https://open.spotify.com/intl-es/track/7DUh5iszvXQDhhE0ZEtmUe?si=8310535932e64c7f"},
-16:{titulo:"💙 Canción de día 16",texto:"Canción número 10",cancion:"CANELAAAAAAA.🩵",link:"https://open.spotify.com/intl-es/track/0JeC8RChAXoISE4SbBhGOG?si=3adbdafc5d2a4883"},
-17:{titulo:"💙 Canción de día 17",texto:"Canción número 16",cancion:"LLEGASTE TÙ.🩵",link:"https://open.spotify.com/intl-es/track/0irzO7t1m3M7U3lSSzR8Y7?si=24e4e0138c8c4b35"},
-18:{titulo:"💙 Canción de día 18",texto:"Canción número 17",cancion:"I adore youuuu.🩵",link:"https://open.spotify.com/intl-es/track/5AnCLGg35ziFOloEnXK4uu?si=267c88aec0f94484"},
-19:{titulo:"💙 Canción de día 19",texto:"Canción número 14",cancion:"Kilometros.🩵",link:"https://open.spotify.com/intl-es/track/0AcFsf9FGjL1Al2RBQ1Crq?si=7b1551b948c2461c"},
-20:{titulo:"💙 Canción de día 20",texto:"Canción número 3",cancion:"LOWKEYYYYYYYY.🩵",link:"https://open.spotify.com/intl-es/track/097vTII30gTHTQMvF67CeK?si=faca430a0f0d4f15"},
-
-21:{titulo:"💙 Canción de día 21",texto:"Canción número 12",cancion:"Demasiado bueno.🩵",link:"https://open.spotify.com/intl-es/track/0qaOUpCYlOXktWEOVhIBwi?si=34f12666879b4de0"},
-22:{titulo:"💙 Canción de día 22",texto:"Canción número 21",cancion:"1960🩵",link:"https://open.spotify.com/intl-es/track/1SaccNcC9Fpg2eSvPnA2eh?si=e1d8b28cd2ea4ea6"},
-23:{titulo:"💙 Canción de día 23",texto:"Canción número 1",cancion:"ALGO MAGICOOOOOOOOOO.✨",link:"https://open.spotify.com/intl-es/track/0zlnHTHiBQ68ZCAmTw5ozm?si=37f143df1b1b4113"},
-24:{titulo:"💙 Canción de día 24",texto:"Canción número 28",cancion:"Te amo.🩵",link:"https://open.spotify.com/intl-es/track/3vxsXUUU9jUJrGNP4APtj3?si=2348b7688b7d42af"},
-25:{titulo:"💙 Canción de día 25",texto:"Canción número 5",cancion:"Contigo.🩵",link:"https://open.spotify.com/intl-es/track/4UkUxO2WlKLc0Q1iEutGGh?si=46025c8e07254d85"},
-26:{titulo:"💙 Canción de día 26",texto:"Canción número 4",cancion:"Stand by me.🩵",link:"https://open.spotify.com/intl-es/track/0DQd0tWurMHUAv0cMnDELH?si=2092c44dfe7d4973"},
-27:{titulo:"💙 Canción de día 27",texto:"Canción número 30",cancion:"A un milimetro de ti.🩵",link:"https://open.spotify.com/intl-es/track/3iXzP5MqfZF3vXekc94arR?si=bef319bb266345f2"},
-28:{titulo:"💙 Canción de día 28",texto:"Canción número 27",cancion:"All of me.🩵",link:"https://open.spotify.com/intl-es/track/3U4isOIWM3VvDubwSI3y7a?si=28f03089b56c4995"},
-29:{titulo:"💙 Canción de día 29",texto:"Canción número 2",cancion:"Alma.🩵",link:"https://open.spotify.com/intl-es/track/35kVPuCr0uZfkNEt5TlD9O?si=de613169c0254a91"},
-30:{titulo:"💙 Canción de día 30",texto:"Canción número 29",cancion:"Tù de que vas.🩵",link:"https://open.spotify.com/intl-es/track/66iygyOSvvoQQsKJ1vEXfT?si=69403293723f4449"},
-
-};
-
-/* 📅 CONFIG */
-const totalDias=30;
-const fechaInicio=new Date(2026,3,1);
-fechaInicio.setHours(0,0,0,0);
-
-const grid=document.getElementById("grid");
-
-/* 💬 popup */
-function mostrarMensaje(dia){
-
-  const d = mensajes[dia];
-
-  const overlay=document.createElement("div");
-  overlay.className="overlay";
-
-  const msg=document.createElement("div");
-  msg.className="mensaje";
-
-  msg.innerHTML=`
-    <div style="font-size:16px;font-weight:bold;margin-bottom:5px;">
-      ${d?.titulo || "💙"}
-    </div>
-
-    <div style="font-size:13px;margin-bottom:10px;">
-      ${d?.texto || ""}
-    </div>
-
-    🎵 
-    <a href="${d?.link || '#'}" target="_blank"
-    style="color:#1e3a8a;font-weight:bold;text-decoration:none;">
-      ${d?.cancion || "Sorpresa 💖"}
-    </a>
-  `;
-
-  overlay.appendChild(msg);
-  document.body.appendChild(overlay);
-
-  setTimeout(()=>{
-    if(dia===30){
-      window.location.href="cumpleanos.html";
-    }else{
-      window.location.href="dia"+dia+".html";
-    }
-  },3000);
-}
-
-/* 🧠 tarjetas */
-for(let i=1;i<=30;i++){
-
-  const card=document.createElement("div");
-  card.className="card";
-
-  const fecha=new Date(fechaInicio);
-  fecha.setDate(fechaInicio.getDate()+(i-1));
-
-  const icon=document.createElement("div");
-  const day=document.createElement("div");
-  const timer=document.createElement("div");
-
-  icon.className="icon";
-  day.className="day";
-  timer.className="timer";
-
-  day.innerText="Día "+i;
-
-  const now=new Date();
-
-  if(now>=fecha){
-    icon.innerText="🔓";
-    timer.innerText="Disponible";
-    card.classList.add("active");
-
-    card.onclick=()=>mostrarMensaje(i);
-
-  }else{
-    icon.innerText="🔒";
-    card.classList.add("locked");
-
-    function update(){
-      const diff=fecha-new Date();
-      const d=Math.floor(diff/86400000);
-      const h=Math.floor(diff/3600000)%24;
-      const m=Math.floor(diff/60000)%60;
-      const s=Math.floor(diff/1000)%60;
-      timer.innerText=`${d}d ${h}h ${m}m ${s}s`;
-    }
-
-    update();
-    setInterval(update,1000);
-  }
-
-  card.appendChild(icon);
-  card.appendChild(day);
-  card.appendChild(timer);
-
-  grid.appendChild(card);
-}
-
+  // mostrar mensaje
+  texto.classList.add("show");
+});
 </script>
 
 </body>
