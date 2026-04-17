@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💖 Para ti</title>
+<title>17 NO Cumpleaños💖 </title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
@@ -37,22 +37,18 @@ button{
   border:none;
   border-radius:12px;
   cursor:pointer;
-  background:#ff4d7d;
-  color:white;
   font-weight:500;
   transition:0.3s;
 }
 
 button:hover{
-  background:#ff1f5a;
+  background:#5dcefa;
 }
 
 /* IMAGEN ENTRADA */
 .entry-img{
   width:100%;
   max-width:320px;
-  border-radius:20px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.25);
   cursor:pointer;
   transition:0.4s;
 }
@@ -77,7 +73,7 @@ button:hover{
 }
 
 h2,h3{
-  color:#ff3f77;
+  color:#a1bff7;
 }
 
 p{
@@ -93,7 +89,28 @@ video{
 }
 </style>
 </head>
+<script>
+const diaActual = 29;
 
+const fechaInicio = new Date("2026-03-01");
+const fechaDesbloqueo = new Date(fechaInicio);
+fechaDesbloqueo.setDate(fechaInicio.getDate() + (diaActual-1));
+
+const ahora = new Date();
+
+if(ahora < fechaDesbloqueo){
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.innerHTML = `
+      <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:Arial;text-align:center">
+        <div>
+          <h1>🔒 Aún no disponible</h1>
+          <p>Este día todavía está bloqueado</p>
+        </div>
+      </div>
+    `;
+  });
+}
+</script>
 <body>
 
 <!-- ENTRADA (FOTO CLICKEABLE) -->
@@ -101,13 +118,13 @@ video{
 
   <img src="ghero.png" class="entry-img" onclick="openMenu()">
 
-  <p>Hola.</p>
+  <p></p>
 </div>
 
 <!-- MENU -->
 <div class="screen" id="menuScreen">
-  <h2></h2>
-  <p>Elija qué quiere ver señor:</p>
+  <h2>Hi baby!💖</h2>
+  <p>Elige uno.✨</p>
 
   <button onclick="openVideo()">🎥</button>
   <button onclick="openLetter()">💌</button>
@@ -115,31 +132,40 @@ video{
 
 <!-- VIDEO -->
 <div class="screen" id="videoScreen">
-  <h3>🎥 Video especial</h3>
 
   <video controls>
-    <source src="video.mp4" type="video/mp4">
+    <source src="videoa (2).mp4" type="video/mp4">
   </video>
 
-  <button onclick="back()">⬅ Volver</button>
+  <button onclick="back()">🔙</button>
 </div>
 
 <!-- CARTA -->
 <div class="screen" id="letterScreen">
   <div class="card">
-    <h3>💌 Carta para ti</h3>
+    <h3>Feliz 17 NO cumpleaños amor.</h3>
 
     <p>
-      Desde que llegaste, todo se siente diferente… más bonito.<br><br>
+      Amorcito mio, perdón por a veces no saber como
+      controlar mis emociones y eso termine efectandote,
+      sé que es de las cosas que más debo trabajar,
+      lamento mucho hacerte sentir triste y pensativo,
+      también lamento mucho convertir nuestro momento del dia juntos,
+      en un momento triste en vez de bonito, perdoname por eso mi amor.<br>
+      
+      No sé cómo explicarlo, solo sé que de repente me pongo triste
+      quizás, o simplemente mi animo decae, desearia que eso 
+      no te afectara, perdón por hacerte pasar malos ratos 
+      y por en ocasiones ser un nuevo problema en tu vida,
+      lo menos que quiero es ser causante de sufrimiento para ti,
+      perdón mi amor, que tengas bonito día. <br><br>
 
-      No sé cómo explicarlo, pero me haces bien sin intentarlo.<br><br>
-
-      Eres de esas personas que se quedan en la mente y en el corazón 💖
+      Te amo con todo mi corazón.💖
     </p>
 
-    <p><b>Con cariño,</b><br>Mireya</p>
+    <p><b></b><br></p>
 
-    <button onclick="back()">⬅ Volver</button>
+    <button onclick="IrAIndex()">🏠</button>
   </div>
 </div>
 
@@ -164,6 +190,9 @@ function openLetter(){
 
 function back(){
   show('menuScreen');
+}
+function IrAIndex(){
+  window.location.href = "index.html";
 }
 
 </script>
