@@ -170,7 +170,7 @@ const mensajes = {
 
 /* 📅 CONFIG */
 const totalDias=30;
-const fechaInicio=new Date(2026,3,1);
+const fechaInicio=new Date(2026,2,1);
 fechaInicio.setHours(0,0,0,0);
 
 const grid=document.getElementById("grid");
@@ -209,8 +209,8 @@ function mostrarMensaje(dia){
     if(dia===30){
       window.location.href="cumpleanos.html";
     }
-   else if(dia===27){
-  window.location.href="dia27/flor/dia271.html";
+else if(dia===27){
+  window.location.href="./dia27/flor/dia271.html";
 }
     else{
       window.location.href="dia"+dia+".html";
