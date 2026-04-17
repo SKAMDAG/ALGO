@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>19 NO cumpleaños.⭐</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+body{
+  margin:0;
+  font-family:'Poppins', sans-serif;
+  background:linear-gradient(to bottom,#e6f2ff,#d6ecff);
+  overflow:hidden;
+}
+
+/* FONDO */
+body::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:url('corazul.png');
+  opacity:0.05;
+}
+
+/* IMÁGENES */
+img{
+  max-width:100%;
+  height:auto;
+}
+
+/* PANTALLAS */
+.screen{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  padding:20px;
+  opacity:0;
+  pointer-events:none;
+  transform:scale(0.95);
+  transition:0.5s;
+}
+.active{
+  opacity:1;
+  pointer-events:auto;
+  transform:scale(1);
+}
+
+/* CORAZONES */
+.hearts-side span{
+  position:absolute;
+  font-size:22px;
+  opacity:0.5;
+  animation:floatUp linear infinite;
+}
+.hearts-side span:nth-child(1){left:10%; animation-duration:6s;}
+.hearts-side span:nth-child(2){left:30%; animation-duration:8s;}
+.hearts-side span:nth-child(3){left:50%; animation-duration:7s;}
+.hearts-side span:nth-child(4){left:70%; animation-duration:9s;}
+.hearts-side span:nth-child(5){left:90%; animation-duration:5s;}
+
+@keyframes floatUp{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+
+/* BOTONES */
+button{
+  padding:12px 20px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#66b3ff,#99ccff);
+  color:white;
+  font-size:15px;
+  margin:10px;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
+  transition:0.3s;
+}
+button:hover{
+  transform:scale(1.1);
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+/* CARTAS OPCIONES */
+.card{
+  background:white;
+  padding:12px;
+  border-radius:20px;
+  box-shadow:0 8px 15px rgba(0,0,0,0.15);
+  transition:0.3s;
+  transform:rotate(-3deg);
+}
+
+.card:nth-child(even){
+  transform:rotate(3deg);
+}
+
+.card:hover{
+  transform:scale(1.08) rotate(0deg);
+}
+
+/* IMÁGENES MÁS GRANDES PERO BONITAS */
+.card img{
+  width:140px;
+  border-radius:15px;
+}
+
+/* GIF */
+.gif{
+  width:230px;
+  border-radius:20px;
+}
+
+/* VIDEO */
+video{
+  width:260px;
+  border-radius:15px;
+}
+
+/* 💖 CONTENEDOR CARTA */
+.paper-wrapper{
+  transform:translateY(40px) scale(0.9);
+  opacity:0;
+  transition:0.6s ease;
+}
+
+/* CUANDO APARECE */
+.paper-wrapper.show{
+  transform:translateY(0) scale(1);
+  opacity:1;
+}
+
+/* 💌 CARTA */
+.paper{
+  width:270px;
+  padding:25px;
+  border-radius:20px;
+  text-align:center;
+
+  background:linear-gradient(135deg,#ffffff,#f3f7ff);
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,0.15),
+    inset 0 0 10px rgba(255,255,255,0.6);
+
+  transform:scaleY(0);
+  transform-origin:top;
+  transition:0.5s ease;
+}
+
+/* ABRIR */
+.paper.open{
+  transform:scaleY(1);
+}
+
+/* TEXTO */
+.paper h2{
+  color:#6fa8ff;
+}
+.paper p{
+  color:#444;
+  font-size:14px;
+  line-height:1.7;
+}
+
+/* BRILLO */
+.sparkle{
+  position:fixed;
+  pointer-events:none;
+  animation:fade 1s linear;
+}
+@keyframes fade{
+  to{opacity:0; transform:scale(2);}
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<div class="hearts-side">
+  <span>💙</span><span>🩵</span><span>💙</span><span>🩵</span><span>💙</span>
+</div>
+
+<!-- INICIO -->
+<div class="screen active" id="inicio">
+  <h1>¿Listo para ver el día de hoy? </h1>
+  <button onclick="show('opciones')">Síííííí.</button>
+  <button id="noBtn">💔 Nope.</button>
+</div>
+
+<!-- OPCIONES -->
+<div class="screen" id="opciones">
+  <h1>Parece que si estabas listo. 😎</h1>
+  <div class="grid">
+    <div class="card" onclick="show('flores')"><img src="florcita.png"></div>
+    <div class="card" onclick="show('gif')"><img src="FOTITO.png"></div>
+    <div class="card" onclick="show('video')"><img src="peli.png"></div>
+    <div class="card" onclick="abrirCarta()"><img src="CARTITAAA.jpg"></div>
+  </div>
+</div>
+
+<!-- FLORES -->
+<div class="screen" id="flores">
+  <img src="download.gif" class="gif">
+  <h2>Florcita para el guapo de mi novio.💙</h2>
+  <button onclick="show('opciones')">🔙</button>
+</div>
+
+<!-- GIF -->
+<div class="screen" id="gif">
+  <img src="FOTO.gif" class="gif">
+  <h2>Fotito con el lindooo de mi novio.💙</h2>
+  <button onclick="show('opciones')">🔙</button>
+</div>
+
+<!-- VIDEO -->
+<div class="screen" id="video">
+  <video controls>
+    <source src="VIDEITOOOO.mp4">
+  </video>
+  <button onclick="show('opciones')">🔙</button>
+</div>
+
+<!-- CARTA -->
+<div class="screen" id="carta">
+  <div class="paper-wrapper" id="wrapper">
+    <div class="paper" id="paper">
+      <h2>Feliz 19 NO cumpleaños amorcito.💙</h2>
+      <p>
+        Me está dando nostalgia, estamos a 17 hoy, 
+        o sea ahora que estoy escribiendo esto, son las 
+        2:45, hace par de minutos me estaba riendo con un 
+        video note tuyo, pero ese no es el punto, 
+        es que me da nostalgia porque llevo dias largos en esto,
+        y ya actualmente solo me faltan 3 dias más por terminar.<br><br>
+        
+        Por alguna razón mientras los hacia pensaba que estaba 
+        cerca tuyo, pero bueno...Todo termina, en fin.
+        Gracias por estar en mi vida, por hacerme feliz y por ser tú.<br>
+        Te amo tantísimo.🫧
+      </p>
+    </div>
+  </div>
+
+ <button onclick="irAIndex()">💙</button>
+</div>
+
+<script>
+
+/* CAMBIO */
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* BOTON NO */
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", ()=>{
+  noBtn.style.position="absolute";
+  noBtn.style.left=Math.random()*70+"%";
+  noBtn.style.top=Math.random()*70+"%";
+});
+
+/* ANIMACION CARTA */
+function abrirCarta(){
+  show('carta');
+
+  setTimeout(()=>{
+    document.getElementById("wrapper").classList.add("show");
+  },100);
+
+  setTimeout(()=>{
+    document.getElementById("paper").classList.add("open");
+  },500);
+}
+
+/* BRILLO */
+document.addEventListener("mousemove",(e)=>{
+  let s=document.createElement("div");
+  s.className="sparkle";
+  s.innerHTML="✨";
+  s.style.left=e.clientX+"px";
+  s.style.top=e.clientY+"px";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),1000);
+});
+function irAIndex(){
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
