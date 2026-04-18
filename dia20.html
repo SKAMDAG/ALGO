@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>20 NO cumpleaños.💖</title>
+<title>21 NO cumpleaños.💖</title>
 
 <style>
 body{
@@ -80,17 +80,13 @@ body{
   justify-content:center;
   align-items:center;
   z-index:30;
-  transition: opacity 0.5s;
 }
 
 .final{
-  color:#6dc0f7;
+  color:#6dc0f7; /* azul bonito */
   font-weight:bold;
-  text-align:center;
-  display:block;
-  margin-top:10px;
+  text-align: center;
 }
-
 .carta-texto{
   text-align: justify;
   line-height:1.6;
@@ -103,7 +99,6 @@ body{
   text-align:center;
   max-width:350px;
   animation:fade 1s ease;
-  cursor:pointer;
 }
 
 @keyframes fade{
@@ -113,7 +108,7 @@ body{
 </style>
 </head>
 <script>
-const diaActual = 20;
+const diaActual = 21;
 
 const fechaInicio = new Date("2026-03-01");
 const fechaDesbloqueo = new Date(fechaInicio);
@@ -136,7 +131,7 @@ if(ahora < fechaDesbloqueo){
 </script>
 <body>
 
-<!-- VIDEO SIN SONIDO -->
+<!-- VIDEO -->
 <video id="bgVideo" autoplay muted loop playsinline class="bg-video">
   <source src="fondito.mp4" type="video/mp4">
 </video>
@@ -145,57 +140,58 @@ if(ahora < fechaDesbloqueo){
 
 <!-- HUD -->
 <div class="ui">
-  <p>Emojis: <span id="count">0</span>/21✨</p>
+  <h2>Atrapalos Baby.</h2>
+  <p>Emojis: <span id="count">0</span>/21</p>
 </div>
 
 <!-- MENSAJE -->
 <div id="message" class="message"> Ñaño, vas muy bien...Siga así señorito. ✨</div>
 
 <!-- CARTA -->
-<div id="letter" class="letter">
-  <div class="box" onclick="irAIndex()">
+<div id="letter" class="letter" onclick="goIndex()">
+  <div class="box">
     <h2>Feliz 20 NO Cumpleaños, y...
-        Feliz 7vo mes, mi amor bonito. </h2>
-   <p class="carta-texto">
-  Reuniste todos los emojis, uno a uno…<br>
-  y así quiero construir todo contigo,<br>
-  paso a paso, uno a uno, quiero que siempre
-  avancemos juntos, agarraditos de la mano, que
-  nunca nos soltemos, que seamos siempre el apoyo y la 
-  fuerza del otro, que construyamos una vida juntos
-  avanzando de a poquito, superando los tropezones
-  y logrando todo aquello que nos llene el corazón.<br><br>
+        Feliz 7vo mes, mi amor bonito.</h2>
 
-  <span class="final">Te amo infinito mi amor bonito.✨</span>
-</p>
+    <p class="carta-texto">
+      Reuniste todos los emojis, uno a uno…<br>
+      y así quiero construir todo contigo,<br>
+      paso a paso, uno a uno, quiero que siempre
+      avancemos juntos, agarraditos de la mano, que
+      nunca nos soltemos, que seamos siempre el apoyo y la 
+      fuerza del otro, que construyamos una vida juntos
+      avanzando de a poquito, superando los tropezones
+      y logrando todo aquello que nos llene el corazón.<br><br>
+
+      <span class="final">Te amo infinito mi amor bonito.✨</span>
+    </p>
   </div>
 </div>
 
-<!-- 🔊 AUDIO SEPARADO (IMPORTANTE) -->
-<audio id="bgMusic" src="musica.mp3" loop></audio>
+
+<!-- SONIDO -->
 <audio id="popSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
 
 <script>
 let count = 0;
 let phase = 1;
 let sonidoActivado = false;
-let yaSalio = false;
 
-/* activar música UNA sola vez */
+/* activar sonido automáticamente */
 function activarSonidoAuto(){
   if(!sonidoActivado){
-    let music = document.getElementById("bgMusic");
-    music.volume = 0.5;
-    music.play();
+    let video = document.getElementById("bgVideo");
+    video.muted = false;
+    video.play();
     sonidoActivado = true;
   }
 }
 
-/* interacción */
+/* activar con cualquier toque */
 document.addEventListener("click", activarSonidoAuto);
 document.addEventListener("touchstart", activarSonidoAuto);
 
-/* emojis */
+/* generar emojis */
 function spawnEmoji(){
   let emoji = document.createElement("div");
   emoji.className = "emoji";
@@ -211,89 +207,54 @@ function spawnEmoji(){
   emoji.style.top = Math.random() * (window.innerHeight - 50) + "px";
 
   emoji.onclick = ()=>{
-    activarSonidoAuto();
+    activarSonidoAuto(); // 🔥 activa sonido aquí también
 
     let sonido = document.getElementById("popSound");
-
-    if(!sonido.paused){
-      sonido.pause();
-      sonido.currentTime = 0;
-    }
-
+    sonido.currentTime = 0;
     sonido.play();
 
     emoji.remove();
     count++;
     document.getElementById("count").innerText = count;
 
-    let msg = document.getElementById("message");
+  let msg = document.getElementById("message");
 
-    if(count === 5){
-      msg.innerText = "Vas muy bien... sigue así 💕";
-      msg.style.display = "block";
-      setTimeout(()=> msg.style.display="none",2000);
-      phase = 2;
-    }
+if(count === 5){
+  msg.innerText = "Vas muy bien... sigue así 💕";
+  msg.style.display = "block";
+  setTimeout(()=> msg.style.display="none",2000);
+  phase = 2;
+}
 
-    if(count === 10){
-      msg.innerText = "Ñaño, ya vas por la mitad...💫";
-      msg.style.display = "block";
-      setTimeout(()=> msg.style.display="none",2000);
-    }
+if(count === 10){
+  msg.innerText = "Ñaño, ya vas por la mitad...💫";
+  msg.style.display = "block";
+  setTimeout(()=> msg.style.display="none",2000);
+}
 
-    if(count === 18){
-      msg.innerText = "Casi llegas...YUPIIIIIIIIIII. 😍 💞";
-      msg.style.display = "block";
-      setTimeout(()=> msg.style.display="none",2000);
-    }
-
+if(count === 18){
+  msg.innerText = "Casi llegas...YUPIIIIIIIIIII. 😍 💞";
+  msg.style.display = "block";
+  setTimeout(()=> msg.style.display="none",2000);
+}
     if(count === 21){
       document.getElementById("letter").style.display = "flex";
-      clearInterval(loopEmojis);
     }
   };
 
   document.body.appendChild(emoji);
 
   setTimeout(()=>{
-    if(emoji.parentNode){
-      emoji.remove();
-    }
+    emoji.remove();
   },3000);
 }
 
-let loopEmojis = setInterval(spawnEmoji, 800);
+/* loop */
+setInterval(spawnEmoji, 800);
 
-/* salir limpio */
-function irAIndex(){
-  if(yaSalio) return;
-  yaSalio = true;
-
-  let carta = document.getElementById("letter");
-  let video = document.getElementById("bgVideo");
-  let music = document.getElementById("bgMusic");
-  let sonido = document.getElementById("popSound");
-
-  // 🔥 matar TODO completamente
-  video.pause();
-  video.src = "";
-  video.load();
-
-  music.pause();
-  music.src = "";
-  music.load();
-
-  sonido.pause();
-  sonido.src = "";
-  sonido.load();
-
-  carta.style.opacity = "0";
-
-  setTimeout(()=>{
-    window.location.href = "index.html";
-  },500);
+function goIndex(){
+  window.location.href = "index.html";
 }
-
 </script>
 
 </body>
