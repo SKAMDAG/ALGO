@@ -98,16 +98,21 @@ button{
 /* carta final */
 .final{
   display:none;
-  position:absolute;
+  position:fixed;
+  top:0;
+  left:0;
   width:100%;
-  height:100%;
+  height:100dvh;
   background:#ffffff;
   color:#333;
   justify-content:center;
   align-items:center;
   text-align:center;
   padding:30px;
+  overflow-y:auto;
 
+  /* 👇 mejora visual */
+  flex-direction:column;
 }
 
 .final.show{
@@ -116,12 +121,13 @@ button{
 
 .final p{
   font-family:'Playfair Display', serif;
-  font-size:1.5rem;
-  line-height:1.5;
+  font-size: clamp(1.1rem, 4vw, 1.5rem); /* 👈 se adapta */
+  line-height:1.6;
 }
 
 .decor{
-  width:25vw; /* se adapta al tamaño de pantalla */
+  position:absolute; /* 👈 clave */
+  width:25vw;
   max-width:200px;
 }
 

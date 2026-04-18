@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💙 Love Game GOD</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+  background: radial-gradient(circle at top,#dbeafe,#e0f2fe,#c7d2fe);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* 🌟 PARTICULAS */
+.bg{
+  position:fixed;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  z-index:0;
+}
+.p{
+  position:absolute;
+  width:6px;height:6px;
+  background:white;
+  border-radius:50%;
+  opacity:.5;
+  animation:float 10s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(100vh)}
+  to{transform:translateY(-10vh)}
+}
+
+/* APP */
+.app{
+  position:relative;
+  z-index:1;
+  width:95%;
+  max-width:900px;
+  background:rgba(255,255,255,0.2);
+  backdrop-filter:blur(25px);
+  border-radius:30px;
+  padding:25px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.2);
+  text-align:center;
+  animation:fade .6s ease;
+}
+@keyframes fade{from{opacity:0;transform:scale(.9)}}
+
+h1{color:#1e3a8a;margin-bottom:10px}
+
+/* BOTONES */
+.btn{
+  padding:12px 18px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(45deg,#3b82f6,#6366f1);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  margin:5px;
+  transition:.3s;
+}
+.btn:hover{transform:scale(1.07)}
+
+/* SCREENS */
+.screen{display:none}
+.active{display:block}
+
+/* DRAG */
+.letters,.slots{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+.tile{
+  width:60px;height:60px;
+  border-radius:15px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  cursor:grab;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.slot{
+  width:60px;height:60px;
+  border:2px dashed #3b82f6;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+}
+
+/* SOPA */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:6px;
+  margin-top:20px;
+}
+.cell{
+  background:white;
+  padding:12px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.selected{background:#3b82f6;color:white}
+
+/* CRUCIGRAMA */
+.cross{
+  display:grid;
+  grid-template-columns:repeat(7,50px);
+  gap:6px;
+  justify-content:center;
+  margin-top:20px;
+}
+.cross input{
+  width:50px;height:50px;
+  text-align:center;
+  font-size:20px;
+  border-radius:10px;
+  border:none;
+  background:white;
+}
+.block{background:transparent}
+
+/* FINAL */
+.final{
+  font-size:20px;
+  color:#1e3a8a;
+  animation:fade 1s ease;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg" id="bg"></div>
+
+<div class="app">
+
+<h1>💙 Para ti</h1>
+
+<div id="menu" class="screen active">
+  <button class="btn" onclick="go(1)">Nivel 1</button>
+  <button class="btn" onclick="go(2)">Nivel 2</button>
+  <button class="btn" onclick="go(3)">Nivel 3</button>
+</div>
+
+<!-- NIVEL 1 -->
+<div id="n1" class="screen">
+<h2>Descifra 💭</h2>
+<div class="slots" id="slots"></div>
+<div class="letters" id="letters"></div>
+<button class="btn" onclick="check1()">Verificar</button>
+</div>
+
+<!-- NIVEL 2 -->
+<div id="n2" class="screen">
+<h2>Sopa 🔍</h2>
+<div class="grid" id="grid"></div>
+<p>Encuentra: <b>AMOR</b></p>
+</div>
+
+<!-- NIVEL 3 -->
+<div id="n3" class="screen">
+<h2>Crucigrama 🧩</h2>
+<div class="cross">
+<input><input><input><div class="block"></div>
+<input><input><input><input>
+</div>
+<p>Pista: sentimiento eterno</p>
+<button class="btn" onclick="check3()">Verificar</button>
+</div>
+
+<!-- FINAL -->
+<div id="final" class="screen">
+<div class="final">
+💖  
+<br><br>
+Si llegaste hasta aquí...  
+<br><br>
+Eres lo más bonito que tengo.  
+<br><br>
+Te amo 💙
+</div>
+</div>
+
+</div>
+
+<script>
+
+/* 🌟 PARTICULAS */
+for(let i=0;i<40;i++){
+  let p=document.createElement("div");
+  p.className="p";
+  p.style.left=Math.random()*100+"%";
+  p.style.animationDuration=(5+Math.random()*5)+"s";
+  document.getElementById("bg").appendChild(p);
+}
+
+/* NAV */
+function go(n){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("n"+n).classList.add("active");
+}
+
+/* NIVEL 1 */
+const word="TEAMO";
+const shuffled=word.split('').sort(()=>Math.random()-0.5);
+
+const slots=document.getElementById("slots");
+const letters=document.getElementById("letters");
+
+word.split('').forEach(()=>{
+  let s=document.createElement("div");
+  s.className="slot";
+  s.ondragover=e=>e.preventDefault();
+  s.ondrop=e=>s.textContent=e.dataTransfer.getData("text");
+  slots.appendChild(s);
+});
+
+shuffled.forEach(l=>{
+  let t=document.createElement("div");
+  t.className="tile";
+  t.textContent=l;
+  t.draggable=true;
+  t.ondragstart=e=>e.dataTransfer.setData("text",l);
+  letters.appendChild(t);
+});
+
+function check1(){
+  let r="";
+  document.querySelectorAll(".slot").forEach(s=>r+=s.textContent);
+  if(r===word){go(2)}
+}
+
+/* NIVEL 2 */
+const grid=document.getElementById("grid");
+const ABC="ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+let cells=[];
+
+for(let i=0;i<100;i++){
+  let c=document.createElement("div");
+  c.className="cell";
+  c.textContent=ABC[Math.floor(Math.random()*ABC.length)];
+  grid.appendChild(c);
+  cells.push(c);
+}
+
+cells[45].textContent="A";
+cells[46].textContent="M";
+cells[47].textContent="O";
+cells[48].textContent="R";
+
+let sel=[];
+let down=false;
+
+cells.forEach(c=>{
+  c.onmousedown=()=>{down=true;sel=[]}
+  c.onmouseover=()=>{
+    if(down){
+      c.classList.add("selected");
+      sel.push(c.textContent);
+      if(sel.join("")==="AMOR"){go(3)}
+    }
+  }
+  c.onmouseup=()=>down=false;
+});
+
+/* NIVEL 3 */
+function check3(){
+  let r="";
+  document.querySelectorAll(".cross input").forEach(i=>r+=i.value.toUpperCase());
+  if(r.includes("AMOR")){
+    go("final");
+    document.getElementById("final").classList.add("active");
+  }
+}
+
+</script>
+
+</body>
+</html>

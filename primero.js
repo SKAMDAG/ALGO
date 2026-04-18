@@ -28,7 +28,7 @@ var doc=document,flower=doc.querySelector('.flower'),petalPartMarkup='<div class
     'Eres mi persona FAVORITA en el mundo.',
     'Te amo mucho mi muchachito lindo.',
     'See you soon sweetheart.',
-    '¡Ten bonito dia.❤️!'
+    'Ten bonito dia.❤️'
   ];
   
   var wrapper = document.querySelector('.wrapper');
@@ -251,5 +251,30 @@ var doc=document,flower=doc.querySelector('.flower'),petalPartMarkup='<div class
         moveDotsToHeart();
       }
     }
+    function show(){
+
+  // 👇 cuando termina todo
+  if(index >= messages.length){
+    setTimeout(()=>{
+      window.location.href = "../index.html"; // 👈 AJUSTA RUTA SI ES NECESARIO
+    }, 2000); // espera 2 segundos
+    return;
+  }
+
+  msg.textContent="";
+  let j=0;
+
+  function type(){
+    if(j < messages[index].length){
+      msg.textContent += messages[index][j++];
+      setTimeout(type,50);
+    }else{
+      index++;
+      setTimeout(show,1200);
+    }
+  }
+
+  type();
+}
   });
 });
