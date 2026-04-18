@@ -13,6 +13,8 @@ overflow-x: hidden;
 background: linear-gradient(-45deg, #d4f1ff, #cdb4ff, #a0e7ff, #bdb2ff);
 background-size: 400% 400%;
 animation: gradientBG 10s ease infinite;
+padding-left: env(safe-area-inset-left);
+padding-right: env(safe-area-inset-right);
 }
 
 @keyframes gradientBG {
@@ -145,8 +147,23 @@ object-fit: contain;
 border-radius: 20px;
 }
 
-.flip-back {
-transform: rotateY(180deg);
+.flip-back{
+  padding: 15px 18px; /* 👈 espacio interno */
+  box-sizing: border-box;
+  overflow-y: auto; /* 👈 evita que se corte */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.flip-back p{
+  font-size: clamp(14px, 4vw, 18px);
+  line-height: 1.5;
+  text-align: center;
+  margin: 0;
+  padding: 5px;
+}
+.carousel{
+  padding: 0 10px; /* 👈 separa de los lados */
 }
 
 .carousel-btn {
@@ -240,13 +257,13 @@ if(ahora < fechaDesbloqueo){
 <div class="flip-front"><img src="ai2.jpg"></div>
 <div class="flip-back">
 <p>
-Un día me desperté emocionada <br>
-porque según yoiba a tener una <br>
-cita contigo, pues resulta que sí,<br>
-que iba a tener una cita contigo. <br>
-Recuerdo que ese día llegué a <br>
-mi casita como si me hubiesen <br>
-regalado un libro, estaba muy feliz,<br>
+Un día me desperté emocionada 
+porque según yo iba a tener una 
+cita contigo, pues resulta que sí,
+que iba a tener una cita contigo. 
+Recuerdo que ese día llegué a 
+mi casita como si me hubiesen 
+regalado un libro, estaba muy feliz,
 pero al mismo tiempo no podía creerlo.</p>
 </div>
 </div>
