@@ -115,9 +115,10 @@ cursor: pointer;
 width: 100%;
 height: 100%;
 transition: transform 0.8s;
-transform-style: preserve-3d;
 position: relative;
+transform-style: preserve-3d;
 }
+
 
 .flip-card.flipped .flip-inner {
 transform: rotateY(180deg);
@@ -127,14 +128,14 @@ transform: rotateY(180deg);
 position: absolute;
 width: 100%;
 height: 100%;
+top: 0;
+left: 0;
 backface-visibility: hidden;
 border-radius: 20px;
 overflow: hidden;
 display:flex;
 align-items:center;
 justify-content:center;
-text-align:justify;
-padding:15px;
 box-sizing:border-box;
 }
 
@@ -148,19 +149,17 @@ border-radius: 20px;
 }
 
 .flip-back{
-  padding: 15px 18px; /* 👈 espacio interno */
-  box-sizing: border-box;
-  overflow-y: auto; /* 👈 evita que se corte */
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  transform: rotateY(180deg); /* 👈 ESTO ES CLAVE */
+  background: white;
+  padding: 20px;
 }
+
 .flip-back p{
   font-size: clamp(14px, 4vw, 18px);
   line-height: 1.5;
   text-align: center;
   margin: 0;
-  padding: 5px;
+  max-width: 90%;
 }
 .carousel{
   padding: 0 10px; /* 👈 separa de los lados */
