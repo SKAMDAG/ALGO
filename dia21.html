@@ -174,7 +174,9 @@
         padding:0 10px;
       }
     }
-
+.cell{
+  touch-action: none; /* 👈 evita bugs de scroll */
+}
   </style>
 </head>
 
@@ -274,8 +276,11 @@ function reset(){
 }
 
 cells.forEach(cell=>{
+
+  // 🖱️ PC
   cell.addEventListener('mousedown',()=>{
-    isDragging=true; reset();
+    isDragging=true; 
+    reset();
     addCell(cell);
   });
 
@@ -287,9 +292,34 @@ cells.forEach(cell=>{
     isDragging=false;
     checkWord();
   });
+
+  // 📱 CELULAR (TOUCH)
+  cell.addEventListener('touchstart',(e)=>{
+    e.preventDefault();
+    isDragging=true;
+    reset();
+    addCell(cell);
+  });
+
+  cell.addEventListener('touchmove',(e)=>{
+    e.preventDefault();
+    const touch = e.touches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    
+    if(element && element.classList.contains('cell')){
+      addCell(element);
+    }
+  });
+
+  cell.addEventListener('touchend',()=>{
+    isDragging=false;
+    checkWord();
+  });
+
 });
 
 document.addEventListener('mouseup',()=> isDragging=false);
+document.addEventListener('touchend',()=> isDragging=false);
 
 function addCell(cell){
   if(!selectedCells.includes(cell)){
