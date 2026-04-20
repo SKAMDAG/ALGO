@@ -24,6 +24,7 @@ body{
   display:flex;
   gap:18px;
   align-items:center;
+  position: relative; /* 👈 importante */
 }
 
 /* FOTO PRINCIPAL */
@@ -42,9 +43,9 @@ body{
 
 /* FOTO CARTA */
 .carta{
-  position: fixed; /* 👈 clave */
-  top: 20px;       /* distancia desde arriba */
-  right: 20px;     /* distancia desde la derecha */
+  position: absolute;
+  top: -20px;     /* 👈 sube un poco */
+  right: -20px;   /* 👈 la acerca a la foto */
 
   width: 260px;
   height: 260px;
@@ -52,9 +53,14 @@ body{
   border-radius: 22px;
   cursor: pointer;
 
-  opacity: 0;
+  opacity:0;
   transform: translateY(-20px);
-  transition: 0.6s ease;
+  transition:0.6s ease;
+}
+
+.carta.show{
+  opacity:1;
+  transform: translateY(0);
 }
 
 /* cuando aparece */
