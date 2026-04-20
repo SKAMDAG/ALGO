@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>23 NO Cumpleaños.💖</title>
+<title>23 NO Cumpleaños 💖</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
@@ -21,13 +22,13 @@ body{
 
 /* CONTENEDOR */
 .container{
+  position: relative;
   display:flex;
-  gap:18px;
+  justify-content:center;
   align-items:center;
-  position: relative; /* 👈 importante */
 }
 
-/* FOTO PRINCIPAL */
+/* CASSETTE */
 .foto1{
   width:260px;
   height:260px;
@@ -35,49 +36,43 @@ body{
   border-radius:22px;
   cursor:pointer;
   transition:0.4s;
+  position: relative;
+  z-index: 10;
 }
 
 .foto1.active{
-  transform:scale(1.04);
+  transform:scale(1.05);
 }
 
-/* FOTO CARTA */
-
+/* CARTA (sale desde dentro) */
 .carta{
   position: absolute;
   top: 0;
-  left: 0; /* 👈 empieza encima del cassette */
+  left: 0;
 
-  width: 260px;
-  height: 260px;
-  object-fit: cover;
-  border-radius: 22px;
-  cursor: pointer;
+  width:260px;
+  height:260px;
+  object-fit:cover;
+  border-radius:22px;
+  cursor:pointer;
 
-  opacity: 0;
-  transform: translate(0, 0) scale(0.9); /* 👈 escondida */
+  opacity:0;
+  transform: translate(0,0) scale(0.9);
   transition: 0.7s cubic-bezier(.68,-0.55,.27,1.55);
 
-  z-index: 5;
+  z-index:5;
 }
 
-/* 🎬 cuando sale */
 .carta.show{
-  opacity: 1;
-  transform: translate(140px, -120px) scale(1); 
-  /* 👉 mueve derecha y arriba (ajustable) */
+  opacity:1;
+  transform: translate(130px, -110px) scale(1);
 }
 
 /* 📱 RESPONSIVE */
-
 @media (max-width:768px){
 
   body{
     padding:20px;
-  }
-
-  .container{
-    flex-direction:column;
   }
 
   .foto1{
@@ -89,8 +84,10 @@ body{
   .carta{
     width:200px;
     height:200px;
-    top: 0;
-    right: 0;
+  }
+
+  .carta.show{
+    transform: translate(90px, -80px) scale(1);
   }
 }
 
@@ -101,11 +98,11 @@ body{
 
 <div class="container">
 
-  <!-- FOTO 1 -->
+  <!-- CASSETTE -->
   <img src="cassete.png" class="foto1" id="foto1">
 
-  <!-- FOTO 2 (CARTA) -->
-  <img src="foti.png" class="carta" id="carta">
+  <!-- CARTA -->
+  <img src="nube.gif" class="carta" id="carta">
 
 </div>
 
@@ -119,22 +116,30 @@ const foto1 = document.getElementById("foto1");
 const carta = document.getElementById("carta");
 const audio = document.getElementById("audio");
 
-/* CLICK PRINCIPAL */
-foto1.addEventListener("click", () => {
+/* CLICK CASSETTE */
+foto1.addEventListener("click", (e) => {
+
+  e.preventDefault();
+  e.stopPropagation();
 
   audio.currentTime = 0;
-  audio.play().catch(()=>{}); // evita errores en móvil
+
+  audio.play().catch(()=>{});
 
   foto1.classList.add("active");
   carta.classList.add("show");
 
 });
 
-/* CLICK EN LA CARTA → IR A INDEX */
-carta.addEventListener("click", () => {
+/* CLICK CARTA */
+carta.addEventListener("click", (e) => {
+
+  e.stopPropagation();
+
   window.location.href = "index.html";
 });
 </script>
 
 </body>
 </html>
+
