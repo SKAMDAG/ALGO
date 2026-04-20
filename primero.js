@@ -1,118 +1,87 @@
 window.addEventListener('DOMContentLoaded', function() {
+var doc=document,flower=doc.querySelector('.flower'),petalPartMarkup='<div class="box"><div class="shape"></div></div>',maxParts=20,maxPetals=6,partsFontStep=25/maxParts;createFlower();function createFlower(){var angle=360/maxPetals;for(var i=0;i<maxPetals;i++){var petal=createPetal(),currAngle=angle*i+'deg',transform='transform: rotateY('+currAngle+') rotateX(-30deg) translateZ(9vmin)';petal.setAttribute('style',transform);flower.appendChild(petal);}}function createPetal(){var box=createBox(null,0),petal=doc.createElement('div');petal.classList.add('petal');for(var i=1;i<=maxParts;i++){box=createBox(box,i);}petal.appendChild(box);return petal;}function createBox(box,pos){var fontSize=partsFontStep*(maxParts-pos)+'vmin',half=maxParts/2,bright='50';if(pos<half+1){fontSize=partsFontStep*pos+'vmin';}else{bright=10+40/half*(maxParts-pos);}var baseHue=190,hueVariation=20,saturation=70+(20*pos/maxParts),color='hsl('+(baseHue+(hueVariation*pos/maxParts))+', '+saturation+'%, '+bright+'%)',newShape=doc.createElement('div');newShape.classList.add('shape');var newBox=doc.createElement('div');newBox.classList.add('box');newBox.setAttribute('style','color: '+color+';font-size: '+fontSize);if(box)newBox.appendChild(box);newBox.appendChild(newShape);return newBox;}
 
-  const startBtn = document.getElementById('start-btn');
-  const container = document.getElementById('start-btn-container');
-  const wrapper = document.querySelector('.wrapper');
-  const msg = document.querySelector('.flower-message');
-  const canvas = document.getElementById('galaxy-canvas');
+function drawGalaxy(){var canvas=document.getElementById('galaxy-canvas');if(!canvas)return;var ctx=canvas.getContext('2d');function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}resize();window.addEventListener('resize',resize);var stars=[],numStars=120;for(var i=0;i<numStars;i++){stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.5+0.5,dx:(Math.random()-0.5)*0.7,dy:(Math.random()-0.5)*0.7,alpha:Math.random()*0.5+0.5});}function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);for(var i=0;i<stars.length;i++){var s=stars[i];ctx.save();ctx.globalAlpha=s.alpha;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='rgba(255,182,193,0.9)';ctx.shadowColor='#ffb6d5';ctx.shadowBlur=2;ctx.fill();ctx.restore();s.x+=s.dx;s.y+=s.dy;if(s.x<0||s.x>canvas.width)s.dx*=-1;if(s.y<0||s.y>canvas.height)s.dy*=-1;}requestAnimationFrame(animate);}animate();}
+document.addEventListener('DOMContentLoaded',drawGalaxy);
 
-  /* 📱 DETECTAR MÓVIL */
-  const isMobile = window.innerWidth <= 600;
+var mainContent = document.getElementById('main-content');
+if (mainContent) mainContent.style.display = '';
 
-  /* 🎯 CENTRAR BOTÓN */
-  container.style.position = 'fixed';
-  container.style.top = '50%';
-  container.style.left = '50%';
-  container.style.transform = 'translate(-50%,-50%)';
-  container.style.zIndex = '100';
+// Botón typing
+var startBtn = document.getElementById('start-btn');
+var btnText = 'HOLAAAAA.';
+startBtn.textContent = '';
+startBtn.disabled = true;
+let iBtn = 0;
 
-  /* ✍️ TEXTO BOTÓN */
-  const btnText = 'HOLAAAAA.';
-  let iBtn = 0;
-  startBtn.textContent = '';
-  startBtn.disabled = true;
-
-  function typeBtn() {
-    if (iBtn < btnText.length) {
-      startBtn.textContent += btnText.charAt(iBtn);
-      iBtn++;
-      setTimeout(typeBtn, 80);
-    } else {
-      startBtn.disabled = false;
-    }
+function typeBtn() {
+  if (iBtn < btnText.length) {
+    startBtn.textContent += btnText.charAt(iBtn);
+    iBtn++;
+    setTimeout(typeBtn, 90);
+  } else {
+    startBtn.disabled = false;
   }
-  typeBtn();
+}
+typeBtn();
 
-  /* 💬 MENSAJES */
-  const messages = [
-    'Hiiiiiiii BABY!!!',
-    'Feliz 27 NO cumpleaños',
-    'Gracias por ser el novio más LINDOOOOOOO.',
-    'Eres mi persona FAVORITA en el mundo.',
-    'Te amo mucho mi muchachito lindo.',
-    'See you soon sweetheart.',
-    'Ten bonito día ❤️'
-  ];
+// Mensajes
+const messages = [
+  'Hiiiiiiii BABY!!!',
+  'Feliz 27 NO cumpleaños.',
+  'Gracias por ser el novio más LINDOOOOOOO.',
+  'Eres mi persona FAVORITA en el mundo.',
+  'Te amo mucho mi muchachito lindo.',
+  'See you soon sweetheart.',
+  '¡Ten bonito dia!❤️'
+];
 
-  /* 🌌 GALAXIA */
-  function startGalaxy() {
-    canvas.style.display = '';
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+var wrapper = document.querySelector('.wrapper');
+var msg = document.querySelector('.flower-message');
 
-    const ctx = canvas.getContext('2d');
+// Centrar botón
+var container = document.getElementById('start-btn-container');
+container.style.position = 'fixed';
+container.style.top = '50%';
+container.style.left = '50%';
+container.style.transform = 'translate(-50%,-50%)';
+container.style.zIndex = '100';
 
-    let dots = [];
-    let numDots = isMobile ? 25 : 80;
+startBtn.addEventListener('click', function() {
 
-    for (let i = 0; i < numDots; i++) {
-      dots.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.5 + 0.5,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5
+  var isMobile = window.innerWidth <= 600;
+  container.style.display = 'none';
+  wrapper.style.display = '';
+
+  var music = document.getElementById('bg-music');
+  if (music) {
+    music.currentTime = 0;
+    var playPromise = music.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(function(error) {
+        alert('No se pudo reproducir la música.');
       });
     }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      dots.forEach(dot => {
-        ctx.beginPath();
-        ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 182, 193, 0.8)';
-        ctx.fill();
-
-        dot.x += dot.dx;
-        dot.y += dot.dy;
-
-        if (dot.x < 0 || dot.x > canvas.width) dot.dx *= -1;
-        if (dot.y < 0 || dot.y > canvas.height) dot.dy *= -1;
-      });
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
   }
 
-  /* 🎬 CLICK */
-  startBtn.addEventListener('click', function() {
+  if (isMobile) {
 
-    container.style.display = 'none';
-    wrapper.style.display = '';
     msg.style.display = '';
     msg.style.opacity = 1;
-
-    startGalaxy();
-
     let current = 0;
 
-    function typeText(text, callback) {
+    function typeText(text, cb) {
       msg.textContent = '';
       let i = 0;
-
       function type() {
         if (i < text.length) {
           msg.textContent += text.charAt(i);
           i++;
-          setTimeout(type, isMobile ? 60 : 80);
-        } else if (callback) {
-          setTimeout(callback, isMobile ? 800 : 1200);
+          setTimeout(type, 90);
+        } else if (cb) {
+          setTimeout(cb, 1000);
         }
       }
-
       type();
     }
 
@@ -124,20 +93,54 @@ window.addEventListener('DOMContentLoaded', function() {
         });
       } else {
 
-        /* 💖 ANIMACIÓN FINAL SUAVE */
-        setTimeout(() => {
-          document.body.style.transition = "1s";
-          document.body.style.opacity = "0";
+        // 🔥 REDIRECCIÓN FINAL (MÓVIL)
+        setTimeout(function() {
+          window.location.href = "index.html";
+        }, 6000);
 
-          setTimeout(() => {
-            window.location.href = "index.html";
-          }, 1000);
-
-        }, 2000);
       }
     }
 
     showNext();
-  });
 
+  } else {
+
+    msg.style.display = '';
+    msg.style.opacity = 1;
+    let current = 0;
+
+    function typeText(text, cb) {
+      msg.textContent = '';
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          msg.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, 90);
+        } else if (cb) {
+          setTimeout(cb, 1000);
+        }
+      }
+      type();
+    }
+
+    function showNext() {
+      if (current < messages.length) {
+        typeText(messages[current], function() {
+          current++;
+          showNext();
+        });
+      } else {
+
+        // 🔥 REDIRECCIÓN FINAL (DESKTOP)
+        setTimeout(function() {
+          window.location.href = "index.html";
+        }, 6000);
+
+      }
+    }
+
+    showNext();
+  }
+});
 });
