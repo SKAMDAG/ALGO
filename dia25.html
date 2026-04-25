@@ -4,27 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>14 NO cumpleaños.💖</title>
+<title>25 NO cumpleaños 💖</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
-font-family:"Poppins",sans-serif;
-background:#8bc6ee;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-height:100vh;
-margin:0;
-text-align:center;
-color:#333;
-}
-
-h2{
-margin-bottom:20px;
+  font-family:"Poppins",sans-serif;
+  background:linear-gradient(135deg,#a8d8ff,#d8caff);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh; /* 👈 cambia height por min-height */
+  margin:0;
+  text-align:center;
+  color:#333;
+  overflow:auto; /* 👈 permite bajar */
 }
 
 .screen{
@@ -39,86 +36,251 @@ display:block;
 }
 
 .main-img{
-width:280px;
+width:260px;
 margin-bottom:15px;
 cursor:pointer;
-transition:.3s;
+transition:.4s;
+border-radius:15px;
 }
 
 .main-img:hover{
-transform:scale(1.05);
-}
-
-.btn{
-margin-top:15px;
-padding:10px 25px;
-font-size:1em;
-border:none;
-border-radius:6px;
-cursor:pointer;
-background:#7cbbee;
-color:white;
-}
-
-.btn:hover{
-background:#77d3f8;
+transform:scale(1.07) rotate(1deg);
 }
 
 .card{
-background:repeating-linear-gradient(
-rgb(255, 255, 255),
-white 28px,
-#e3e3e3 29px
-);
-padding:40px 60px;
-border:2px solid #e5e5e5;
-max-width:900px;
-text-align:left;
-box-shadow:0 0 15px rgba(0,0,0,0.1);
-cursor:pointer;
+  background:linear-gradient(180deg,#ffffff,#fdfdfd);
+  padding:50px 60px;
+  border-radius:15px;
+  max-width:900px;
+  max-height:70vh;
+  text-align:left;
+  box-shadow:
+  0 15px 35px rgba(0,0,0,0.2),
+  inset 0 0 10px rgba(0,0,0,0.05);
+  cursor:pointer;
+  position:relative;
+  overflow:hidden; /* 👈 IMPORTANTE */
+  animation:abrirCarta .8s ease;
 }
+
+/* líneas tipo cuaderno */
+.card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:30px;
+  width:2px;
+  background:#cce5ff;
+  z-index:5; /* 👈 más alto que TODO */
+  pointer-events:none;
+}
+
+/* efecto papel */
+.card::after{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:repeating-linear-gradient(
+transparent,
+transparent 28px,
+#eaeaea 29px
+);
+opacity:.4;
+pointer-events:none;
+z-index:1; /* 👈 por debajo */
+}
+
 
 .card h3{
 font-family:'Dancing Script',cursive;
-font-size:2em;
+font-size:2.5em;
 margin-bottom:20px;
+color:#4a6fa5;
+}
+
+/* primera letra grande tipo carta */
+.contenido p:not(.firma-final)::first-letter{
+  font-size:2.5em;
+  font-weight:bold;
+  color:#7cbbee;
+  float:left;
+  margin-right:8px;
+  line-height:1;
 }
 
 .card p{
-font-family:'Dancing Script',cursive;
-font-size:1.3em;
-line-height:1.6;
+  font-family:'Dancing Script',cursive;
+  font-size:1.35em;
+  line-height:1.9; /* 👈 más aire */
+  color:#444;
+  margin-bottom:15px; /* 👈 separa párrafos */
+}
+
+/* animación de abrir */
+@keyframes abrirCarta{
+from{
+transform:scale(.8) rotateX(15deg);
+opacity:0;
+}
+to{
+transform:scale(1) rotateX(0);
+opacity:1;
+}
+}
+.contenido{
+  max-height:60vh;
+  overflow-y:auto;
+  padding-right:10px; /* evita que el scroll tape texto */
+}
+/* SCROLL ULTRA LIMPIO */
+.contenido::-webkit-scrollbar{
+  width:4px;
+}
+
+.contenido::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.contenido::-webkit-scrollbar-thumb{
+  background:rgba(124,187,238,0.3); /* muy suave */
+  border-radius:10px;
+}
+
+.contenido::-webkit-scrollbar-thumb:hover{
+  background:rgba(124,187,238,0.6);
+}
+
+/* FIREFOX */
+.contenido{
+  scrollbar-width:thin;
+  scrollbar-color:rgba(124,187,238,0.3) transparent;
+}
+.contenido p{
+  font-family:'Dancing Script',cursive;
+  font-size:1.35em;
+  line-height:1.9;
+  color:#444;
+  margin-bottom:18px;
+  text-align:justify; /* 👈 se ve más tipo carta */
+  overflow:visible; /* 👈 clave */
+   padding-left:15px;
+}
+
+
+/* solo la PRIMERA letra del primer párrafo */
+.contenido p:first-of-type::first-letter{
+  font-size:2.8em;
+  font-weight:bold;
+  color:#7cbbee;
+  float:left;
+  margin-right:8px;
+  line-height:1.9;
+}
+.btn{
+margin-top:15px;
+padding:10px 25px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#7cbbee;
+color:white;
+font-weight:bold;
+transition:.3s;
+}
+
+.btn:hover{
+background:#4fc3f7;
+transform:scale(1.05);
+}
+
+#mensajeFinal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(6px);
+justify-content:center;
+align-items:center;
+animation:fadeIn .5s;
+}
+
+.modal{
+background:white;
+padding:30px;
+border-radius:15px;
+text-align:center;
+max-width:400px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+.card::-webkit-scrollbar{
+  width:5px;
+}
+
+.card::-webkit-scrollbar-thumb{
+  background:rgba(124,187,238,0.5);
 }
 
 @keyframes fadeIn{
-from{opacity:0;transform:scale(.95);}
+from{opacity:0;transform:scale(.9);}
 to{opacity:1;transform:scale(1);}
 }
+.contenido h3{
+  text-align:left;
+}
+.firma{
+  font-family:'Dancing Script',cursive;
+  font-size:1.6em;
+  text-align:center;
+  margin-top:25px;
+  color:#0a0e20;
+}
 
+.firma-final{
+  font-family:'Dancing Script',cursive;
+  font-size:3em;
+  font-weight:bold;
+  color:#7cbbee;
+  
+  text-align:center; /* centrado horizontal */
+  
+  display:block;
+  width:100%;
+  
+  margin:40px auto 10px auto; /* 👈 lo separa y centra mejor */
+  
+  letter-spacing:2px;
+  text-shadow:0 4px 15px rgba(124,187,238,0.4);
+
+  float:none; /* 👈 evita conflictos con first-letter */
+
+  position:relative;
+  left:50%;
+  transform:translateX(-50%);
+  width:max-content;
+}
+
+.contenido p:not(.firma-final)::first-letter{
+  font-size:2.5em;
+  font-weight:bold;
+  color:#7cbbee;
+  
+  float:left;
+  
+  margin-right:10px;
+  margin-top:4px; /* 👈 baja un poco la letra */
+  
+  line-height:0.9; /* 👈 evita que se corte arriba */
+}
 </style>
 </head>
-<script>
-const diaActual = 14;
 
-const fechaInicio = new Date("2026-03-01");
-const fechaDesbloqueo = new Date(fechaInicio);
-fechaDesbloqueo.setDate(fechaInicio.getDate() + (diaActual-1));
-
-const ahora = new Date();
-
-if(ahora < fechaDesbloqueo){
-  document.addEventListener("DOMContentLoaded", () => {
-    document.body.innerHTML = `
-      <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:Arial;text-align:center">
-        <div>
-          <h1>🔒 Aún no disponible</h1>
-          <p>Este día todavía está bloqueado</p>
-        </div>
-      </div>
-    `;
-  });
-}
-</script>
 <body>
 
 <!-- PANTALLA 1 -->
@@ -135,76 +297,105 @@ if(ahora < fechaDesbloqueo){
 <!-- PANTALLA 3 -->
 <div class="screen" id="screen3">
 
-<div class="card" onclick="mostrarMensaje()">
+  <div class="card" onclick="mostrarMensaje()">
+  <div class="contenido">
 
-<h3>Amorcito mio.</h3>
+<h3>   Amorcito mío.</h3>
 
 <p>
-A veces las cosas más simples de la vida son las que nos llenan el alma,
-las que nos recuerdan que estamos vivos  y también de que estamos hechos,
+Muchas veces las cosas más simples de la vida son las que más nos llenan el alma,
+las que nos recuerdan que estamos vivos y también de qué estamos hechos,
 yo estoy hecha de inseguridades e imperfecciones, estoy hecha de colores y de risas,
-y justo esas risas que comparto contigo son las que me me salvan y también me devuelven
-a la realidad, son un recordatorio de que estamos vivos, de que a veces nos preocupamos 
-y nos torturamos por cosas que no valen tanto la pena, yo no cambiaría ni una de nuestras
-llamadas nocturnas por nada en el mundo, porque justo en ese momento del día es que soy 100% yo,
-y me aterra y emociona al mismo tiempo saber que si Dios permite algún día, 
-seré todo eso por más tiempo, que compartiré risas y miradas contigo porque créeme 
-que sin duda esos son los momentos más mágicos que he experimentado, que mi risa te de risa 
-y viceversa, que te mire y piense que estoy demasiado loca y que a veces me da miedo sentir tanto, 
-luego recuerdo que la vida se deberi tratar de dar y recibir amor, nada más que eso, te hice un 
-comentario de que “si salimos de esta relación”, créeme que no tengo planes de salir de ella, 
-no puedo hablar por ti porque aunque estoy consciente de que me amas y mucho, verdaderamente 
-solo tú conoces el tamaño de ese sentimiento porque solo a ti te pertenece, pero hablando de mí, 
-puedo afirmar que muchas personas no han amado nunca ni la mitad de lo que yo te amo a ti,
- es una completa locura y no estoy alardeando ni mucho menos, solo digo que si amara 
- a cada persona que conozco un 1% de lo que te amo a ti, yo no sería pecadora, es por eso 
- que Dios nos divide de diversas formas, aunque me muera de miedo, ten muy seguro que 
- yo estoy más que feliz de que la persona que tiene tanto de mi, seas tú, yo espero 
- siempre cuidar mucho de tus sentimientos para ser muy digna de ellos. ❤️‍🩹
+y son justo esas risas que comparto contigo las que me salvan y también me devuelven a la realidad.
 </p>
 
-</div>
+<p>
+Aveces, o mejor dicho siempre, esas cosas son un recordatorio de que estamos vivos,
+de que a veces nos preocupamos y nos torturamos por cosas que no valen tanto la pena. 
+Yo no cambiaría ni una de nuestras llamadas nocturnas por nada en el mundo, 
+porque justo en ese momento del día es que soy 100% yo.
+</p>
 
+<p>
+No lo puedo negar, claro que me aterra y emociona al mismo tiempo saber que si Dios permite, 
+algún día seré todo eso por más tiempo, que compartiré risas y miradas contigo porque créeme 
+que sin duda esos son los momentos más mágicos que he experimentado, suena demasiado cursi
+y cliché, lo sé, pero es la verdad.
+</p>
+
+<p>
+Desde que me puse a analizar y pensé que mi risa te da risa y viceversa,
+que te miro y pienso que estoy demasiado enamorada, que pienso en ti y sonrio,
+me dio miedo y aún a veces me da miedo sentir tanto... Pero luego recuerdo 
+que la vida se debería tratar de dar, dar, dar, dar, dar y dar amor y nada más que eso.
+</p>
+
+<p>
+Oh, el otro dia te hice un comentario de que “si salimos de esta relación”, 
+no te hizo nada de gracia dicho comentario, pero créeme que no 
+tengo planes de salir de ella. No puedo hablar por ti,
+porque aunque estoy consciente de que me amas
+y mucho, solo tú conoces el tamaño de ese sentimiento.Pero...
+</p>
+
+<p>
+Te aseguro que hablando de mí, puedo afirmar que muchas personas no han amado nunca ni la mitad
+de lo que yo te amo a ti. Es una completa locura… Y no, no estoy alardeando nada,
+solo digo que si amara a cada persona que conozco un 1% de lo que te amo a ti,
+yo sería 50% menos pecadora, porque amaría demasido, y yo creo que...
+
+</p>
+
+<p>
+Es por eso que Dios nos divide de diversas formas. 
+Y bueno, aunque me muera de miedo, ten muy seguro que yo estoy más que feliz de que la persona
+que tiene tanto de mí, seas tú. Yo espero siempre cuidar mucho de tus sentimientos
+para que ambos seamos siempre libres de expresar con total libertad todo lo que 
+nuestro corazón sienta. 
+</p>
+
+<p class="firma-final">MUCHO.❤️‍🩹</p>
+</div>
 </div>
 
 <!-- MENSAJE FINAL -->
-
-<div id="mensajeFinal" style="
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.4);
-justify-content:center;
-align-items:center;
-">
-
-<div style="
-background:white;
-padding:30px;
-border-radius:10px;
-text-align:center;
-max-width:400px;
-font-family:Poppins;
-">
-
-<h3>Eso es todo.🩵</h3>
-
-<p>
-Muchas gracias por su tiempo estimado. <br> 
-Nos vemos prontitooo.
-</p>
-
-<button class="btn" onclick="irAIndex()">¡De acuerdo!</button>
-
-</div>
-
+<div id="mensajeFinal">
+  <div class="modal">
+    <h3>Eso es todo 🩵</h3>
+    <p>
+    Muchas gracias por tu tiempo. <br>
+    Nos vemos prontitooo.
+    </p>
+    <button class="btn" onclick="irAIndex()">Aceptar</button>
+  </div>
 </div>
 
 <script>
 
+// 🔒 BLOQUEO POR FECHA (ARREGLADO)
+window.onload = function(){
+
+const diaActual = 14;
+const fechaInicio = new Date("2026-03-01");
+const fechaDesbloqueo = new Date(fechaInicio);
+fechaDesbloqueo.setDate(fechaInicio.getDate() + (diaActual-1));
+
+const ahora = new Date();
+
+if(ahora < fechaDesbloqueo){
+  document.body.innerHTML = `
+    <div style="display:flex;justify-content:center;align-items:center;height:100vh;text-align:center">
+      <div>
+        <h1>🔒 Aún no disponible</h1>
+        <p>Este día todavía está bloqueado</p>
+      </div>
+    </div>
+  `;
+}
+
+}
+
+// navegación
 function nextScreen(num){
 document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'))
 document.getElementById('screen'+num).classList.add('active')
@@ -215,7 +406,7 @@ document.getElementById("mensajeFinal").style.display="flex"
 }
 
 function irAIndex(){
-  window.location.href = "index.html";
+window.location.href="index.html"
 }
 
 </script>
