@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Galaxia de Amor 💖</title>
+<title>26 NO Cumpleaños</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body {
@@ -25,7 +25,7 @@
     transform: translateX(-50%);
     text-align: center; z-index: 10;
     pointer-events: none;
-    text-shadow: 0 0 20px #ff1493, 0 0 40px #ff69b4;
+    text-shadow: 0 0 20px #0e0820, 0 0 40px #6a59b3;
   }
   .title h1 {
     font-size: clamp(1.6rem, 4vw, 2.8rem);
@@ -135,8 +135,8 @@
 <body>
 
 <div class="title">
-  <h1>GALAXIA DE AMOR</h1>
-  <p>✦ un universo hecho de ti ✦</p>
+  <h1>FELIZ 26 NO CUMPLEAÑOS</h1>
+  <p>✦ LOVIUU MUCHACHITO.✦</p>
 </div>
 
 <canvas class="webgl"></canvas>
@@ -145,11 +145,11 @@
   <img id="img" src="" alt="">
   <h2 id="title-card"></h2>
   <p id="text"></p>
-  <button onclick="closeCard()">Cerrar 💜</button>
+  <button onclick="closeCard()">✨💜</button>
 </div>
 
 <div class="final-msg" id="finalMsg"></div>
-<div class="hint">arrastra para girar · haz clic en una estrella 💕</div>
+<div class="hint"> Luego de ver las imagenes · Puedes darle en el centro a la galaxia. </div>
 
 <script type="module">
 import * as THREE from "https://cdn.skypack.dev/three@0.132.2";
@@ -232,34 +232,100 @@ scene.add(galaxy);
 
 /* ====== MEMORIAS ====== */
 const memories = [
-  { position:[2.2, 0.2, 1.0],  title:"Nuestro inicio 💫",      text:"Aquí empezó todo... contigo 💖",          img:"pag1.jpg" },
-  { position:[-2.4,-0.1,-1.2], title:"Risas 😂",                text:"No podíamos parar de reír 😭💜",           img:"pag2.jpg" },
-  { position:[1.0, 0.1,-2.5],  title:"Momento especial ✨",     text:"Uno de mis favoritos 😍🌌",                img:"pag3.jpg" },
-  { position:[-1.8, 0.3, 2.0], title:"Te amo 💖",               text:"Cada día me enamoro más de ti 🌷",         img:"pag4.jpg" },
-  { position:[2.8,-0.2,-0.8],  title:"Para siempre 💌",         text:"Eres mi para siempre favorito 💘",         img:"pag5.jpg" }
+  { position:[2.2, 0.2, 1.0],  title:"Numero 1. 💫",      text:"Ya estoy un poco MUY harta de tanta cursilería verdaderamente.",          img:"una.jpeg" },
+  { position:[-2.4,-0.1,-1.2], title:"Numero 2.🎂",                text:"Asi que bueno,  espero que se sienta muy feliz señorito por cada NO cumpleaños que ha tenido.😭💜",          img:"unaaa.jpeg" },
+  { position:[1.0, 0.1,-2.5],  title:"Numero 3.✨",     text:" Espero que disfrute los que le faltan, que ya no son tantos la verdad.",                img:"otra.jpeg" },
+  { position:[-1.8, 0.3, 2.0], title:"Numero 4.💖",               text:"Un pequeño recordatorio: Eres mi para siempre favorito. 💘🌷",         img:"otraa.jpeg" },
+  { position:[2.8,-0.2,-0.8],  title:"Y el byecito.💌",         text:"Y pues bueno, ya eso es todo por hoy, byecito. 💕",         img:"unaa.jpeg" }
 ];
 
-const spheres = [];
-memories.forEach(mem=>{
-  const geo = new THREE.SphereGeometry(0.1, 24, 24);
-  const mat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-  const sphere = new THREE.Mesh(geo, mat);
-  sphere.position.set(...mem.position);
-  sphere.userData = { ...mem, opened:false };
+/* Crea una textura de respaldo (rosa con emoji) si la imagen no carga */
+function fallbackTexture(emoji='💖'){
+  const c = document.createElement('canvas');
+  c.width = 256; c.height = 256;
+  const ctx = c.getContext('2d');
+  const grad = ctx.createLinearGradient(0,0,256,256);
+  grad.addColorStop(0,'#ff90ff');
+  grad.addColorStop(1,'#4f8cff');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,256,256);
+  ctx.font = '140px serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(emoji, 128, 140);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
 
-  // Halo brillante
-  const haloGeo = new THREE.SphereGeometry(0.18, 24, 24);
+const textureLoader = new THREE.TextureLoader();
+const spheres = [];
+const PHOTO_SIZE = 0.55;
+
+memories.forEach((mem, idx) => {
+  // Grupo contenedor (para el halo + foto + marco)
+  const group = new THREE.Group();
+  group.position.set(...mem.position);
+
+  // Halo exterior brillante
+  const haloGeo = new THREE.PlaneGeometry(PHOTO_SIZE*1.8, PHOTO_SIZE*1.8);
   const haloMat = new THREE.MeshBasicMaterial({
-    color: 0xff90ff, transparent:true, opacity:0.35,
-    blending: THREE.AdditiveBlending
+    color: 0xff90ff,
+    transparent: true,
+    opacity: 0.55,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    map: fallbackHalo()
   });
   const halo = new THREE.Mesh(haloGeo, haloMat);
-  sphere.add(halo);
-  sphere.userData.halo = halo;
+  group.add(halo);
 
-  scene.add(sphere);
-  spheres.push(sphere);
+  // Marco blanco detrás de la foto
+  const frameGeo = new THREE.PlaneGeometry(PHOTO_SIZE*1.15, PHOTO_SIZE*1.15);
+  const frameMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent:true, opacity:0.95 });
+  const frame = new THREE.Mesh(frameGeo, frameMat);
+  frame.position.z = 0.001;
+  group.add(frame);
+
+  // Plano con la foto
+  const photoGeo = new THREE.PlaneGeometry(PHOTO_SIZE, PHOTO_SIZE);
+  const photoMat = new THREE.MeshBasicMaterial({
+    map: fallbackTexture(['🧸','🌸','🎂','💌','🌹'][idx % 5]),
+    transparent: true
+  });
+  const photo = new THREE.Mesh(photoGeo, photoMat);
+  photo.position.z = 0.002;
+  group.add(photo);
+
+  // Cargar la imagen real (si existe)
+  textureLoader.load(
+    mem.img,
+    (tex) => {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      photoMat.map = tex;
+      photoMat.needsUpdate = true;
+    },
+    undefined,
+    () => { /* error: nos quedamos con el fallback */ }
+  );
+
+  group.userData = { ...mem, opened:false, halo, photo, frame };
+  scene.add(group);
+  spheres.push(group);
 });
+
+function fallbackHalo(){
+  const c = document.createElement('canvas');
+  c.width = 256; c.height = 256;
+  const ctx = c.getContext('2d');
+  const g = ctx.createRadialGradient(128,128,20,128,128,128);
+  g.addColorStop(0,'rgba(255,144,255,1)');
+  g.addColorStop(0.4,'rgba(255,105,180,0.6)');
+  g.addColorStop(1,'rgba(255,105,180,0)');
+  ctx.fillStyle = g;
+  ctx.fillRect(0,0,256,256);
+  return new THREE.CanvasTexture(c);
+}
 
 /* ====== CÁMARA ====== */
 const sizes = { width: innerWidth, height: innerHeight };
@@ -298,20 +364,23 @@ canvas.addEventListener('click', (event)=>{
   mouse.x = (event.clientX / innerWidth)*2 - 1;
   mouse.y = -(event.clientY / innerHeight)*2 + 1;
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(spheres);
+  const intersects = raycaster.intersectObjects(spheres, true);
   if(intersects.length > 0){
-    const obj = intersects[0].object;
-    openCard(obj.userData);
-    obj.userData.opened = true;
-    obj.userData.halo.material.color.setHex(0x4f8cff);
-    opened.add(obj.userData.title);
+    // Buscar el grupo padre
+    let target = intersects[0].object;
+    while(target.parent && !target.userData.title) target = target.parent;
+    if(!target.userData.title) return;
+
+    openCard(target.userData);
+    target.userData.opened = true;
+    target.userData.halo.material.color.setHex(0x4f8cff);
+    opened.add(target.userData.title);
 
     if(opened.size === memories.length){
-      // Mensaje final + redirigir
       setTimeout(()=>{
         closeCard();
         const fm = document.getElementById('finalMsg');
-        fm.textContent = '✨ Te amo infinito... gracias por ser tú 💖';
+        fm.textContent = '✨ Te amo infinito muchachito... Byecito. ';
         fm.classList.add('show');
         setTimeout(()=>{ window.location.href = 'index.html'; }, 4500);
       }, 3500);
@@ -358,8 +427,10 @@ function animate(){
   bgStars.rotation.y = t * 0.01;
 
   spheres.forEach((s, i)=>{
-    const pulse = 1 + Math.sin(t*2 + i)*0.25;
+    const pulse = 1 + Math.sin(t*2 + i)*0.12;
     s.scale.setScalar(pulse);
+    // Billboard: que las fotos siempre miren a la cámara
+    s.lookAt(camera.position);
   });
 
   controls.update();
@@ -370,3 +441,4 @@ animate();
 </script>
 </body>
 </html>
+
